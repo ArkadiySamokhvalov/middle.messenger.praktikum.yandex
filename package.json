@@ -14,7 +14,7 @@
   "license": "ISC",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "dev": "parcel src/index.hbs --port 3000 --no-cache",
+    "start": "parcel src/index.hbs --port 3000 --no-cache",
     "build": "parcel build src/index.hbs"
   },
   "engines": {
