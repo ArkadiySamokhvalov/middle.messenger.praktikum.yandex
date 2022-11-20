@@ -1,0 +1,18 @@
+.main {
+  padding: torem(25) torem(8);
+  background-color: $mainBg;
+  flex-grow: 1;
+  width: 100%;
+
+  
+  @include media('sm') {
+    max-width: 360px;
+    margin: torem(25) auto;
+    border-radius: $border-radius;
+    flex-grow: 0;
+  }
+
+  .title {
+    margin-bottom: 1rem;
+  }
+}

@@ -1,0 +1,31 @@
+---
+stylesheets:
+  - ../scss/pages/form-page.scss
+title: Изменить пароль
+uri: /change-password
+---
+
+{{#extend "base"}}
+  {{#content "header"}}
+    <header class="header">
+      <div class="header__content container">
+        <a href="./user-settings.hbs" class="btn btn_icon">
+          <div class="visually-hidden">Вернуться на предыдущю страницу</div>
+          {{> icon icon="back"}}
+        </a>
+        {{> logo class="header__logo"}}
+      </div>
+    </header>
+  {{/content}}
+  {{#content "main"}}
+    <main class="main">
+      {{> title text="Изменить пароль"}}
+      <form class="form">
+        {{> control_pass name="oldPassword" label="Старый пароль"}}
+        {{> control_pass name="newPassword" label="Новый пароль"}}
+        {{> control_pass name="newPassword-repeat" label="Повторите новый пароль"}}
+        {{> btn_primary text="Сохранить"}}
+      </form>
+    </main>
+  {{/content}}
+{{/extend}}

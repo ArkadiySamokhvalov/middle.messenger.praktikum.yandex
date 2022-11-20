@@ -1,0 +1,20 @@
+.btn_primary {
+  background-color: $accent;
+  text: $textAccent;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  border-radius: $border-radius;
+  padding: 8px;
+  transition: $transition-duration;
+  box-shadow: inset 0px -3px 0px 0px darken($color: $accent, $amount: 20);
+  border: none;
+
+  &:hover {
+    background-color: darken($color: $accent, $amount: 10);
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}

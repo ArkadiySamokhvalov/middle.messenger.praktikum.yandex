@@ -1,0 +1,26 @@
+---
+stylesheets:
+  - ../scss/pages/error-page.scss
+title: Ошибка обращения к сервису
+uri: /500
+---
+
+{{#extend "base"}}
+  {{#content "header"}}
+    <header class="header">
+      <div class="header__content container">
+        {{> logo}}
+      </div>
+    </header>
+  {{/content}}
+  {{#content "main"}}
+    <main class="main">
+      {{> error 
+        name="500" 
+        title="Ошибка обращения к сервису" 
+        text="Мы уже устраняем неисправность, попробуйте обновить страницу через некоторое время. 
+        Приносим извинения за временные неудобства."
+      }}
+    </main>
+  {{/content}}
+{{/extend}}

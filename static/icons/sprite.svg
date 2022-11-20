@@ -1,0 +1,138 @@
+<svg width="0" height="0" class="hidden">
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" id="eye-off">
+    <g clip-path="url(#clip0_29_282)">
+      <path d="M11.2125 11.2125C10.1441 12.0269 8.84319 12.4781 7.5 12.5C3.125 12.5 0.625 7.50002 0.625 7.50002C1.40243 6.0512 2.48071 4.7854 3.7875 3.78752M6.1875 2.65002C6.61771 2.54932 7.05817 2.49898 7.5 2.50002C11.875 2.50002 14.375 7.50002 14.375 7.50002C13.9956 8.20977 13.5432 8.87798 13.025 9.49377M8.825 8.82502C8.65334 9.00923 8.44634 9.15699 8.21635 9.25947C7.98635 9.36195 7.73806 9.41705 7.48631 9.42149C7.23455 9.42594 6.98448 9.37962 6.75101 9.28532C6.51754 9.19102 6.30545 9.05066 6.1274 8.87261C5.94936 8.69456 5.809 8.48248 5.71469 8.24901C5.62039 8.01554 5.57408 7.76547 5.57852 7.51371C5.58296 7.26195 5.63807 7.01367 5.74055 6.78367C5.84303 6.55367 5.99078 6.34667 6.175 6.17502" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M0.625 0.625L14.375 14.375" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    </g>
+    <defs>
+      <clipPath id="clip0_29_282">
+        <rect width="15" height="15" fill="currentColor"></rect>
+      </clipPath>
+    </defs>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="trash">
+    <path d="M2.5 5H4.16667H17.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M15.8334 5.00001V16.6667C15.8334 17.1087 15.6578 17.5326 15.3452 17.8452C15.0326 18.1577 14.6087 18.3333 14.1667 18.3333H5.83335C5.39133 18.3333 4.9674 18.1577 4.65484 17.8452C4.34228 17.5326 4.16669 17.1087 4.16669 16.6667V5.00001M6.66669 5.00001V3.33334C6.66669 2.89131 6.84228 2.46739 7.15484 2.15483C7.4674 1.84227 7.89133 1.66667 8.33335 1.66667H11.6667C12.1087 1.66667 12.5326 1.84227 12.8452 2.15483C13.1578 2.46739 13.3334 2.89131 13.3334 3.33334V5.00001" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M8.33331 9.16667V14.1667" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M11.6667 9.16667V14.1667" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="chevron">
+    <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 14" id="double-check">
+    <path d="M11.5555 4L4.71109 10.4167L1.59998 7.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M13.6888 4L6.84439 10.4167L3.73328 7.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 25" id="dots">
+    <g filter="url(#filter0_d_24_252)">
+      <path d="M10.8 5.75C11.9733 5.75 12.9333 4.90625 12.9333 3.875C12.9333 2.84375 11.9733 2 10.8 2C9.62663 2 8.66663 2.84375 8.66663 3.875C8.66663 4.90625 9.62663 5.75 10.8 5.75ZM10.8 7.625C9.62663 7.625 8.66663 8.46875 8.66663 9.5C8.66663 10.5312 9.62663 11.375 10.8 11.375C11.9733 11.375 12.9333 10.5312 12.9333 9.5C12.9333 8.46875 11.9733 7.625 10.8 7.625ZM10.8 13.25C9.62663 13.25 8.66663 14.0938 8.66663 15.125C8.66663 16.1562 9.62663 17 10.8 17C11.9733 17 12.9333 16.1562 12.9333 15.125C12.9333 14.0938 11.9733 13.25 10.8 13.25Z" fill="currentColor"></path>
+    </g>
+    <defs>
+      <filter id="filter0_d_24_252" x="-3.8667" y="0" width="29.3334" height="28" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+        <feOffset dy="4"></feOffset>
+        <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+        <feComposite in2="hardAlpha" operator="out"></feComposite>
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></feColorMatrix>
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_24_252"></feBlend>
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_24_252" result="shape"></feBlend>
+      </filter>
+    </defs>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="paperclip">
+    <path d="M18.6667 9.81333L10.787 17.2448C9.82174 18.1552 8.51249 18.6667 7.14733 18.6667C5.78218 18.6667 4.47293 18.1552 3.50762 17.2448C2.54231 16.3344 2 15.0996 2 13.8121C2 12.5246 2.54231 11.2898 3.50762 10.3794L11.3872 2.94792C12.0308 2.34098 12.9036 2 13.8137 2C14.7238 2 15.5966 2.34098 16.2402 2.94792C16.8837 3.55486 17.2453 4.37804 17.2453 5.23639C17.2453 6.09473 16.8837 6.91792 16.2402 7.52486L8.352 14.9563C8.03023 15.2598 7.59381 15.4303 7.13876 15.4303C6.68371 15.4303 6.24729 15.2598 5.92552 14.9563C5.60375 14.6529 5.42298 14.2413 5.42298 13.8121C5.42298 13.3829 5.60375 12.9713 5.92552 12.6679L13.2049 5.81053" stroke="#FFF4F4" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" id="send">
+    <g clip-path="url(#clip0_24_259)">
+      <path d="M25.9272 14.1422H12.9636" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M25.9272 14.1421L10.0173 21.8024L12.9636 14.1421L10.0173 6.48178L25.9272 14.1421Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    </g>
+    <defs>
+      <clipPath id="clip0_24_259">
+        <rect width="20" height="20" fill="currentColor" transform="translate(14.1421) rotate(45)"></rect>
+      </clipPath>
+    </defs>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="smile">
+    <path d="M9.99996 18.3334C14.6023 18.3334 18.3333 14.6024 18.3333 10C18.3333 5.39765 14.6023 1.66669 9.99996 1.66669C5.39759 1.66669 1.66663 5.39765 1.66663 10C1.66663 14.6024 5.39759 18.3334 9.99996 18.3334Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M6.66663 11.6667C6.66663 11.6667 7.91663 13.3334 9.99996 13.3334C12.0833 13.3334 13.3333 11.6667 13.3333 11.6667" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M7.5 7.5H7.50833" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M12.5 7.5H12.5083" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="calendar">
+    <path d="M15.8333 3.33331H4.16667C3.24619 3.33331 2.5 4.07951 2.5 4.99998V16.6666C2.5 17.5871 3.24619 18.3333 4.16667 18.3333H15.8333C16.7538 18.3333 17.5 17.5871 17.5 16.6666V4.99998C17.5 4.07951 16.7538 3.33331 15.8333 3.33331Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M13.3334 1.66669V5.00002" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M6.66663 1.66669V5.00002" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M2.5 8.33331H17.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 22" id="plus-user">
+    <g clip-path="url(#clip0_40_96)">
+      <path d="M12.4999 10.6796C14.3416 10.6796 15.8333 9.11491 15.8333 7.18309C15.8333 5.25127 14.3416 3.68658 12.4999 3.68658C10.6583 3.68658 9.16659 5.25127 9.16659 7.18309C9.16659 9.11491 10.6583 10.6796 12.4999 10.6796ZM4.99992 8.93134V6.30896H3.33325V8.93134H0.833252V10.6796H3.33325V13.302H4.99992V10.6796H7.49992V8.93134H4.99992ZM12.4999 12.4278C10.2749 12.4278 5.83325 13.5992 5.83325 15.9243V17.6726H19.1666V15.9243C19.1666 13.5992 14.7249 12.4278 12.4999 12.4278Z" fill="currentColor"></path>
+    </g>
+    <defs>
+      <clipPath id="clip0_40_96">
+        <rect width="20" height="20.979" fill="currentColor" transform="translate(0 0.190063)"></rect>
+      </clipPath>
+    </defs>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="users">
+    <path d="M14.1666 17.5V15.8333C14.1666 14.9493 13.8154 14.1014 13.1903 13.4763C12.5652 12.8512 11.7173 12.5 10.8333 12.5H4.16659C3.28253 12.5 2.43468 12.8512 1.80956 13.4763C1.18444 14.1014 0.833252 14.9493 0.833252 15.8333V17.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M7.50008 9.16667C9.34103 9.16667 10.8334 7.67428 10.8334 5.83333C10.8334 3.99238 9.34103 2.5 7.50008 2.5C5.65913 2.5 4.16675 3.99238 4.16675 5.83333C4.16675 7.67428 5.65913 9.16667 7.50008 9.16667Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M19.1667 17.5V15.8333C19.1662 15.0948 18.9204 14.3773 18.4679 13.7936C18.0154 13.2099 17.3819 12.793 16.6667 12.6083" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M13.3333 2.60834C14.0503 2.79192 14.6858 3.20892 15.1396 3.7936C15.5935 4.37827 15.8398 5.09736 15.8398 5.8375C15.8398 6.57765 15.5935 7.29674 15.1396 7.88141C14.6858 8.46609 14.0503 8.88309 13.3333 9.06667" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 21" id="user-plus">
+    <path d="M13.3333 18.1667V16.5C13.3333 15.6159 12.9821 14.7681 12.3569 14.143C11.7318 13.5178 10.884 13.1667 9.99992 13.1667H4.16659C3.28253 13.1667 2.43468 13.5178 1.80956 14.143C1.18444 14.7681 0.833252 15.6159 0.833252 16.5V18.1667" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M7.08333 9.83332C8.92428 9.83332 10.4167 8.34094 10.4167 6.49999C10.4167 4.65904 8.92428 3.16666 7.08333 3.16666C5.24238 3.16666 3.75 4.65904 3.75 6.49999C3.75 8.34094 5.24238 9.83332 7.08333 9.83332Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M16.6667 7.33331V12.3333" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M19.1667 9.83331H14.1667" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" id="image">
+    <g clip-path="url(#clip0_31_487)">
+      <path d="M47.5 12.5V47.5H12.5V12.5H47.5ZM47.5 7.5H12.5C9.75 7.5 7.5 9.75 7.5 12.5V47.5C7.5 50.25 9.75 52.5 12.5 52.5H47.5C50.25 52.5 52.5 50.25 52.5 47.5V12.5C52.5 9.75 50.25 7.5 47.5 7.5ZM35.35 29.65L27.85 39.325L22.5 32.85L15 42.5H45L35.35 29.65Z" fill="currentColor" fill-opacity="0.5"></path>
+    </g>
+    <defs>
+      <clipPath id="clip0_31_487">
+        <rect width="60" height="60" fill="currentColor"></rect>
+      </clipPath>
+    </defs>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="check">
+    <path d="M16.6666 5L7.49992 14.1667L3.33325 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="back">
+    <g clip-path="url(#clip0_31_398)">
+      <path d="M16.6666 9.16668H6.52492L11.1833 4.50834L9.99992 3.33334L3.33325 10L9.99992 16.6667L11.1749 15.4917L6.52492 10.8333H16.6666V9.16668Z" fill="currentColor"></path>
+    </g>
+    <defs>
+      <clipPath id="clip0_31_398">
+        <rect width="20" height="20" fill="currentColor"></rect>
+      </clipPath>
+    </defs>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="menu">
+    <g clip-path="url(#clip0_7_21)">
+      <path d="M2.5 15H17.5V13.3333H2.5V15ZM2.5 10.8333H17.5V9.16667H2.5V10.8333ZM2.5 5V6.66667H17.5V5H2.5Z" fill="currentColor"></path>
+    </g>
+    <defs>
+      <clipPath id="clip0_7_21">
+        <rect width="20" height="20" fill="currentColor"></rect>
+      </clipPath>
+    </defs>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="search">
+    <g clip-path="url(#clip0_7_22)">
+      <path d="M12.9167 11.6667H12.2583L12.025 11.4417C12.8417 10.4917 13.3333 9.25833 13.3333 7.91667C13.3333 4.925 10.9083 2.5 7.91667 2.5C4.925 2.5 2.5 4.925 2.5 7.91667C2.5 10.9083 4.925 13.3333 7.91667 13.3333C9.25833 13.3333 10.4917 12.8417 11.4417 12.025L11.6667 12.2583V12.9167L15.8333 17.075L17.075 15.8333L12.9167 11.6667ZM7.91667 11.6667C5.84167 11.6667 4.16667 9.99167 4.16667 7.91667C4.16667 5.84167 5.84167 4.16667 7.91667 4.16667C9.99167 4.16667 11.6667 5.84167 11.6667 7.91667C11.6667 9.99167 9.99167 11.6667 7.91667 11.6667Z" fill="currentColor"></path>
+    </g>
+    <defs>
+      <clipPath id="clip0_7_22">
+        <rect width="20" height="20" fill="currentColor"></rect>
+      </clipPath>
+    </defs>
+  </symbol>
+  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" id="eye">
+    <path d="M0.625 7.5C0.625 7.5 3.125 2.5 7.5 2.5C11.875 2.5 14.375 7.5 14.375 7.5C14.375 7.5 11.875 12.5 7.5 12.5C3.125 12.5 0.625 7.5 0.625 7.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M7.5 9.375C8.53553 9.375 9.375 8.53553 9.375 7.5C9.375 6.46447 8.53553 5.625 7.5 5.625C6.46447 5.625 5.625 6.46447 5.625 7.5C5.625 8.53553 6.46447 9.375 7.5 9.375Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+  </symbol>
+</svg>

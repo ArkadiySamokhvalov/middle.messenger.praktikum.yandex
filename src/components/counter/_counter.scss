@@ -1,0 +1,17 @@
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: $accent;
+  color: $textAccent;
+  font-size: torem(12);
+  font-weight: bold;
+  padding: torem(2) torem(4) 0;
+  font-weight: 700;
+
+  // .counter__text
+  &__text {
+    line-height: torem(12);
+  }
+}

@@ -1,0 +1,32 @@
+---
+stylesheets:
+  - ../scss/pages/form-page.scss
+title: Регистрация
+uri: /signup
+---
+
+{{#extend "base"}}
+  {{#content "header"}}
+    <header class="header">
+      <div class="container">
+        {{> logo}}
+      </div>
+    </header>
+  {{/content}}
+  {{#content "main"}}
+    <main class="main">
+      <h1 class="title">Регистрация</h1>
+      <form class="form">
+        {{> control name="email" label="Почта"}}
+        {{> control name="login" label="Логин"}}
+        {{> control name="first_name" label="Имя"}}
+        {{> control name="second_name" label="Фамилия"}}
+        {{> control name="phone" label="Телефон"}}
+        {{> control_pass name="password" label="Пароль"}}
+        {{> control_pass name="password_repeat" label="Повторите пароль"}}
+        {{> btn_primary text="Создать аккаунт"}}
+        {{> link class="form__link" text="Уже зарегистрированы? Войти." href="./login.hbs"}}
+      </form>
+    </main>
+  {{/content}}
+{{/extend}}

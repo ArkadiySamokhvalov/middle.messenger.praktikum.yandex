@@ -1,0 +1,16 @@
+<div class='contact row-between'>
+  {{> avatar class="contact__avatar" img=avatar marker=online}}
+  <div class="contact__content row-column">
+    <div class="row-between">
+      {{> name class="contact__name" text=name}}
+      {{> time class="contact__time" text=time}}
+    </div>
+    <div class="row-between">
+      <p class='contact__last-message'>{{last-message}}</p>
+      {{#if counter}}
+        {{> counter class="contact__counter" text=counter}}
+      {{/if}}
+    </div>
+  </div>
+</div>
+

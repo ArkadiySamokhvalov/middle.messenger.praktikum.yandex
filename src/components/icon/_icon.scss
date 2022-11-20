@@ -1,0 +1,8 @@
+.icon {
+  width: 20px;
+  height: 20px;
+
+  &_reflected {
+    transform: scale(-1, -1) 
+  }
+}
