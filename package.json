@@ -18,15 +18,15 @@
     "build": "parcel build src/index.hbs"
   },
   "engines": {
-    "node": "16.x"
+    "node": ">=16.13.2"
   },
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
-    "@parcel/transformer-sass": "^2.7.0",
-    "handlebars": "^4.7.7",
-    "parcel": "^2.7.0"
+    "@anikin/parcel-transformer-handlebars": "~1.0.9",
+    "@parcel/transformer-sass": "~2.8.0",
+    "handlebars": "~4.7.7",
+    "parcel": "~2.8.0"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "normalize.css": "8.0.1"
   }
 }
