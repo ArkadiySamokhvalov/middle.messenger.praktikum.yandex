@@ -1,0 +1,12 @@
+.btn_icon {
+  display: flex;
+  background-color: transparent;
+  border: none;
+  color: $text;
+  padding: 0;
+  transition: $transition-duration;
+
+  &:hover {
+    color: $accent;
+  }
+}

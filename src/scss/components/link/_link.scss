@@ -1,0 +1,10 @@
+.link {
+  display: flex;
+  align-items: center;
+  color: $accent;
+  transition: $transition-duration;
+
+  &:hover {
+    color: darken($color: $accent, $amount: 10);
+  }
+}

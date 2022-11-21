@@ -1,0 +1,26 @@
+.control_file {
+  .control__label {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: $darkBg;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: $transition-duration;
+
+    &:hover {
+      box-shadow: inset 0px -3px 0px 0px $blue;
+    }
+  }
+
+  .control__icon {
+    width: 60px;
+    height: 60px;
+    color: $secondary;
+  }
+
+  .control__input {
+    display: none;
+  }
+}
