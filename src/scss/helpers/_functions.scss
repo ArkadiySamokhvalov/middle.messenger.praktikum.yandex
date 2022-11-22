@@ -1,0 +1,12 @@
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
+@function torem($value, $base-font-size: $base-font-size) {
+  @return calc($value / $base-font-size) + rem;
+}

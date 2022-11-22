@@ -1,0 +1,15 @@
+<div class="messages__item {{class}}">
+  {{#if img}}
+    <picture>
+      <source srcset="../../static/img/{{img}}.webp" type="image/webp">
+      <img src="../../static/img/{{img}}.jpg" class="messages__item-img" alt="">
+    </picture>
+  {{/if}}
+  <div class="messages__item-text">
+    {{text}}
+  </div>
+  <div class="messages__bottom">
+    {{> time class="messages__item-time" text=time}}
+    {{> icon class="messages__item-status" icon="double-check"}}
+  </div>
+</div>

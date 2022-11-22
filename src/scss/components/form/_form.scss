@@ -1,0 +1,46 @@
+.form {
+  max-width: 280px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  &_invalid {
+    .control__input {
+      box-shadow: inset 0 -3px $red !important;
+      color: $red;
+
+      &:focus-visible {
+        color: $textAccent;
+      }
+    }
+    .control__feedback {
+      display: block;
+    }
+  }
+
+  &_valid {
+    .control__input {
+      box-shadow: inset 0 -3px $green !important;
+    }
+  }
+
+  // .form__group
+  &__group {
+    margin-bottom: 1rem;
+  }
+
+  // .form__link
+  &__link {
+    font-size: torem(14);
+    justify-content: center;
+    color: $accentTr;
+  }
+
+  .control + .control, .btn + .link {
+    margin-top: 1rem;
+  }
+
+  .control + .btn {
+    margin-top: torem(20);
+  }
+}

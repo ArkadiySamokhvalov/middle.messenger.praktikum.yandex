@@ -1,0 +1,58 @@
+$path-to-static: '../../../static';
+
+$base-font-size: 16;
+$border-radius: 5px;
+$transition-duration: 0.3s;
+
+$red: #A71212;
+$green: #1C9B1A;
+$blue: #2395FF;
+
+$darkBg: #191721;
+$mainBg: #22202E;
+$mainHover: #575275;
+$inputBg: #D9D9D9;
+$text: #FFFFFF;
+$textAccent: #000000;
+$accent: #F5CA9D;
+$accentTr: rgba(245, 202, 157, 0.9);
+$secondary: rgba(255, 255, 255, 0.5);
+
+// $themes: (
+//   dark: (
+//     darkBg: #191721,
+//     mainBg: #22202E,
+//     mainHover: #575275,
+//     text: #FFFFFF,
+//     textAccent: #000000,
+//     accent: #F5CA9D,
+//     accentTr: rgba(245, 202, 157, 0.9),
+//     secondary: rgba(255, 255, 255, 0.5),
+//   ),
+//   light: (
+//     darkBg: #FFFFFF,
+//     mainBg: #FFFFFF,
+//     mainHover: #E6E6E6,
+//     text: #22202E,
+//     textAccent: #000000,
+//     accent: #F5CA9D,
+//     accentTr: rgba(245, 202, 157, 0.9),
+//     secondary: rgba(34, 32, 46, 0.5),
+//   ),
+// );
+
+$grid-breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xll: 1400px,
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+);

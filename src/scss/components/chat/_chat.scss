@@ -1,0 +1,109 @@
+.chat {
+  // .chat__header
+  &__header {
+    // display: none;
+  }
+
+  // .chat__footer
+  &__footer {
+    // display: none;
+    @include media('sm') {
+      display: none;
+    }
+  }
+
+  // .chat__main
+  &__main {
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: auto;
+    background-color: $mainBg;
+
+    @include media('sm') {
+      @include container('lg');
+      height: calc(100vh - 100px);
+      background-color: unset;
+      overflow-y: initial;
+      margin-top: 25px;
+      margin-bottom: 25px;
+      flex-grow: 0;  
+    }
+  }
+
+  // .chat__content
+  &__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    
+    @include media('sm') {
+      height: 100%;
+      box-shadow: 0px 0px 2px 0px $secondary;
+      border-radius: $border-radius;
+    }
+  }
+
+  // .chat__aside
+  &__aside {
+    // display: none;
+    flex-grow: 1;
+    max-width: 100%;
+
+    @include media('sm') {
+      background-color: $mainBg;
+      max-width: 276px;
+      border-bottom-left-radius: $border-radius;
+      border-top-left-radius: $border-radius;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  // .chat__contact-header
+  &__contact-header {
+    display: none;
+
+    @include media('sm') {
+      display: flex;
+      align-items: center;
+      padding-top: torem(12);
+      padding-bottom: torem(12);
+      background-color: $darkBg;
+      padding-left: torem(8);
+      padding-right: torem(8);
+    }
+
+
+    .control {
+      flex-grow: 1;
+      font-size: torem(12);
+    }
+
+    .btn {
+      margin-left: torem(8);
+    }
+  }
+
+  // .chat__contacts
+  &__contacts {
+    .contact {
+      padding-left: torem(8);
+      padding-right: torem(8);
+    }
+    @include media('sm') {
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+  }
+
+  // .chat__dialog
+  &__dialog {
+    display: none;
+    width: 100%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+    @include media('sm') {
+      display: flex;
+      flex-grow: 1;
+    }
+  }
+}

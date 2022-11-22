@@ -1,0 +1,15 @@
+<div class='control control_pass'>
+  <label class='control__label' for='{{name}}'>{{label}}</label>
+  <div class='control__input-wrapper'>
+    <input
+      class='control__input'
+      name='{{name}}'
+      id='{{name}}'
+      type='password'
+      autocomplete
+    />
+    {{> icon class="control__icon" icon="eye"}}
+    {{> icon class="control__icon control__icon_hide" icon="eye-off"}}
+  </div>
+  <div class="control__feedback">Ошибка! Какой-то текст!</div>
+</div>

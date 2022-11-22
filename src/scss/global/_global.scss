@@ -1,0 +1,60 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Overpass', Impact, Arial, sans-serif;
+  font-weight: 400;
+  color: $text;
+  display: flex;
+  flex-direction: column;
+  background-image: url('#{$path-to-static}/img/default-chat-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+
+  @include media('sm') {
+    display: block;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+picture {
+  display: block;
+
+  img {
+    width: 100%;
+  }
+}
+
+.row-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.row-column {
+  display: flex;
+  flex-direction: column;
+}
