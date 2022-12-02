@@ -14,8 +14,8 @@
   "license": "ISC",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel src/index.hbs --port 3000 --no-cache",
-    "build": "parcel build src/index.hbs",
+    "start": "parcel static/index.html --port 3000 --no-cache",
+    "build": "parcel build static/index.html",
     "stylelint": "stylelint 'src/scss/**/*.scss'",
     "stylelint:fix": "stylelint 'src/scss/**/*.scss' --fix"
   },
@@ -23,7 +23,8 @@
     "node": ">=16.13.2"
   },
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
+    "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
+    "@parcel/resolver-glob": "^2.8.0",
     "@parcel/transformer-sass": "^2.8.0",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
@@ -34,8 +35,8 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "handlebars": "^4.7.7",
-    "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
+    "nanoid": "^4.0.0",
     "parcel": "^2.8.0",
     "prettier": "^2.8.0",
     "stylelint": "^14.15.0",
