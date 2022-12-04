@@ -15,9 +15,11 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "start": "parcel static/index.html --port 3000 --no-cache",
-    "build": "parcel build static/index.html",
-    "stylelint": "stylelint 'src/scss/**/*.scss'",
-    "stylelint:fix": "stylelint 'src/scss/**/*.scss' --fix"
+    "build": "parcel build static/index.html --no-cache --public-url ./",
+    "stylelint": "stylelint 'src/**/*.scss'",
+    "stylelint:fix": "stylelint 'src/**/*.scss' --fix",
+    "lint": "eslint --ignore-path .eslintignore --ext .ts src",
+    "lint:fix": "npm run lint -- --fix"
   },
   "engines": {
     "node": ">=16.13.2"
@@ -29,9 +31,6 @@
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
     "eslint": "^8.28.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "handlebars": "^4.7.7",
@@ -50,6 +49,7 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
+    "eslint-config-prettier": "^8.5.0",
     "normalize.css": "^8.0.1"
   }
 }

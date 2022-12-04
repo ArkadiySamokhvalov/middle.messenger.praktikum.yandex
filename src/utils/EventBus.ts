@@ -8,16 +8,17 @@ export default class EventBus<E extends { [Ev: string]: unknown[] }> {
       this.listeners[event] = [];
     }
 
-    this.listeners[event]!.push(callback);
+    this.listeners[event]?.push(callback);
   }
 
   public off<K extends keyof E>(event: K, callback: (...args: E[K]) => void) {
     if (!this.listeners[event]) {
-      throw new Error(`Нет события ${event as string}`)
+      throw new Error(`Нет события ${event as string}`);
     }
 
-    this.listeners[event] = this.listeners[event]!
-      .filter((listener) => listener !== callback);
+    this.listeners[event] = this.listeners[event]?.filter(
+      (listener) => listener !== callback
+    );
   }
 
   public emit<K extends keyof E>(event: K, ...args: E[K]) {
@@ -25,6 +26,6 @@ export default class EventBus<E extends { [Ev: string]: unknown[] }> {
       return;
     }
 
-    this.listeners[event]!.forEach((listener) => listener(...args));
+    this.listeners[event]?.forEach((listener) => listener(...args));
   }
 }

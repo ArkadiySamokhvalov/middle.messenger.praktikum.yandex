@@ -1,0 +1,42 @@
+@import "../../styles/helpers/_variables.scss";
+@import "../../styles/helpers/_functions.scss";
+@import "../../styles//helpers/_mixins.scss";
+
+.error {
+  max-width: 320px;
+  margin: 0 auto;
+  text-align: center;
+
+  // .error__name
+  &__name {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: torem(24);
+  }
+
+  // .error__title
+  &__title {
+    font-size: torem(16);
+  }
+
+  // .error__text
+  &__text {
+    margin-bottom: 1rem;
+    color: $secondary;
+    line-height: torem(20);
+  }
+
+  // .error__img
+  &__img {
+    max-width: 350px;
+  }
+
+  // .error__back
+  &__back {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 1rem;
+    line-height: torem(22);
+  }
+}

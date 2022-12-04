@@ -1,4 +1,4 @@
-import Block from "./Block";
+import Block from './Block';
 
 export default function renderDOM(rootSelector: string, component: Block) {
   const root = document.getElementById(rootSelector);
@@ -11,5 +11,9 @@ export default function renderDOM(rootSelector: string, component: Block) {
 
   root.innerHTML = '';
 
-  root.append(component.getContent()!);
+  const content = component.getContent();
+
+  if (content) {
+    root.append(content);
+  }
 }

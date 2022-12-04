@@ -1,0 +1,54 @@
+@import "../../styles/helpers/_variables.scss";
+@import "../../styles/helpers/_functions.scss";
+@import "../../styles//helpers/_mixins.scss";
+
+.form {
+  width: 100%;
+  max-width: 280px;
+  margin-right: auto;
+  margin-left: auto;
+
+  // .form_invalid
+  &_invalid {
+    .control__input_invalid {
+      color: $red;
+      box-shadow: inset 0 -3px $red !important;
+
+      &:focus-visible {
+        color: $textAccent;
+      }
+    }
+
+    .control__feedback {
+      display: block;
+    }
+  }
+
+  .control__input_valid {
+    color: $textAccent;
+    box-shadow: inset 0 -3px $green !important;
+  }
+
+  // .form__group
+  &__group {
+    margin-bottom: 1rem;
+  }
+
+  // .form__link
+  &__link {
+    justify-content: center;
+    margin-top: 1rem;
+    color: $accentTr;
+    font-size: torem(14);
+  }
+
+  // .form__control + .form__submit
+  &__control + &__submit {
+    margin-top: torem(20);
+  }
+
+  // .form__control + .form__control
+  &__control + &__control {
+    margin-top: 1rem;
+  }
+}

@@ -1,12 +1,13 @@
-import EventBus from "./EventBus";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
 
 type BlockEvents<P = any> = {
-  "init": [];
-  "flow:component-did-mount": [];
-  "flow:component-did-update": [P, P];
-  "flow:render": [];
+  init: [];
+  'flow:component-did-mount': [];
+  'flow:component-did-update': [P, P];
+  'flow:render': [];
 };
 
 type Props<P extends Record<string, unknown> = any> = {
@@ -15,22 +16,20 @@ type Props<P extends Record<string, unknown> = any> = {
 
 export default class Block<P extends Record<string, unknown> = any> {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   } as const;
+  public static componentName: string;
   private _element: HTMLElement | null = null;
-  private _meta: { props: any };
   private _eventBus: () => EventBus<BlockEvents<Props<P>>>;
   protected props: Props<P>;
-  protected name: string | null = null;
   public children: Record<string, Block>;
   public id = nanoid(6);
 
   constructor(propsWithChildren: Props<P> = {} as Props<P>) {
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
-    this._meta = { props };
     this.props = this._makePropsProxy(props);
     this.children = children;
     this.initChildren();
@@ -64,24 +63,21 @@ export default class Block<P extends Record<string, unknown> = any> {
   }
 
   private _makePropsProxy(props: Props<P>) {
-    const self = this;
-
     return new Proxy(props, {
-      get(target, prop) {
+      get: (target, prop) => {
         const value = target[prop as string];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, prop, value) {
-        const oldTarget = {...target}
-
+      set: (target, prop, value) => {
+        const oldTarget = { ...target };
         target[prop as keyof Props<P>] = value;
-        self._eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+        this._eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
 
         return true;
       },
-      deleteProperty() {
+      deleteProperty: () => {
         throw new Error('Нет доступа');
-      }
+      },
     });
   }
 
@@ -107,7 +103,9 @@ export default class Block<P extends Record<string, unknown> = any> {
   public dispatchComponentDidMount() {
     this._eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-    Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
+    Object.values(this.children).forEach((child) =>
+      child.dispatchComponentDidMount()
+    );
   }
 
   private _componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
@@ -116,6 +114,7 @@ export default class Block<P extends Record<string, unknown> = any> {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
     return true;
   }
@@ -123,7 +122,10 @@ export default class Block<P extends Record<string, unknown> = any> {
   private _render() {
     const template = this.render();
 
-    const fragment = this.compile(template, {...this.props, children: this.children });
+    const fragment = this.compile(template, {
+      ...this.props,
+      children: this.children,
+    });
 
     const newElement = fragment.firstElementChild as HTMLElement;
 
@@ -139,38 +141,33 @@ export default class Block<P extends Record<string, unknown> = any> {
   }
 
   private _addEvents() {
-    const {events = {}} = this.props;
+    const { events = {} } = this.props;
 
-    Object.keys(events).forEach(eventName => {
+    Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
     });
-    // const events: Record<string, () => void> = (this.props as any).events;
-
-    // if (!events) {
-    //   return;
-    // }
-
-    // Object.entries(events).forEach(([event, listener]) => {
-    //   this._element!.addEventListener(event, listener);
-    // });
   }
 
   protected compile(template: string, context: any) {
     const contextAndStubs = { ...context };
-    const compiled = Handlebars.compile(template)
+    const compiled = Handlebars.compile(template);
     const temp = this._createDocumentElement('template') as HTMLTemplateElement;
 
     temp.innerHTML = compiled(contextAndStubs);
 
-    Object.entries(this.children).forEach(([_, component]) => {
+    Object.entries(this.children).forEach(([, component]) => {
       const stub = temp.content.querySelector(`[data-id="id-${component.id}"]`);
 
       if (!stub) {
         return;
       }
 
-      component.getContent()?.append(...Array.from(stub.childNodes));
-      stub.replaceWith(component.getContent()!);
+      const content = component.getContent();
+
+      if (content) {
+        content.append(...Array.from(stub.childNodes));
+        stub.replaceWith(content);
+      }
     });
 
     return temp.content;
@@ -194,13 +191,5 @@ export default class Block<P extends Record<string, unknown> = any> {
 
   public getContent() {
     return this.element;
-  }
-
-  protected show() {
-    this.getContent()!.removeAttribute('style');
-  }
-
-  protected hide() {
-    this.getContent()!.style.display = 'none';
   }
 }

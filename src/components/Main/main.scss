@@ -1,0 +1,21 @@
+@import "../../styles/helpers/_variables.scss";
+@import "../../styles/helpers/_functions.scss";
+@import "../../styles//helpers/_mixins.scss";
+
+.main {
+  flex-grow: 1;
+  width: 100%;
+  padding: torem(25) torem(8);
+  background-color: $mainBg;
+
+  @include media("sm") {
+    flex-grow: 0;
+    max-width: 360px;
+    margin: torem(25) auto;
+    border-radius: $border-radius;
+  }
+
+  .title {
+    margin-bottom: 1rem;
+  }
+}
