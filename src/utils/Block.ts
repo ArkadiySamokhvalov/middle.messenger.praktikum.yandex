@@ -50,11 +50,7 @@ export default class Block<P extends Record<string, unknown> = any> {
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
-      }
-      // else if (Array.isArray(value) && value.every(v => (v instanceof Block))) {
-      //   children[key] = value;
-      // }
-      else {
+      } else {
         props[key] = value;
       }
     });
@@ -120,6 +116,7 @@ export default class Block<P extends Record<string, unknown> = any> {
   }
 
   private _render() {
+    this._removeEvents();
     const template = this.render();
 
     const fragment = this.compile(template, {
@@ -130,7 +127,6 @@ export default class Block<P extends Record<string, unknown> = any> {
     const newElement = fragment.firstElementChild as HTMLElement;
 
     this._element?.replaceWith(newElement);
-
     this._element = newElement;
 
     this._addEvents();
@@ -145,6 +141,18 @@ export default class Block<P extends Record<string, unknown> = any> {
 
     Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  private _removeEvents() {
+    const events: Record<string, () => void> = (this.props as any).events;
+
+    if (!events || !this._element) {
+      return;
+    }
+
+    Object.entries(events).forEach(([event, listener]) => {
+      this._element?.removeEventListener(event, listener);
     });
   }
 
