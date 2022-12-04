@@ -6,6 +6,11 @@ enum METHOD {
   DELETE = 'DELETE',
 }
 
+type HTTPMethod = (
+  url: string,
+  options?: OptionsWithoutMethod
+) => Promise<XMLHttpRequest>;
+
 type Options = {
   method: METHOD;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,43 +23,28 @@ type Options = {
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 export default class HTTPTransport {
-  public get(
-    url: string,
-    options: OptionsWithoutMethod = {}
-  ): Promise<XMLHttpRequest> {
+  public get: HTTPMethod = (url, options = {}) => {
     const { data } = options;
     const newURL = data ? this._queryStringify(url, data) : url;
 
     return this._request(newURL, { ...options, method: METHOD.GET });
-  }
+  };
 
-  public post(
-    url: string | URL,
-    options: OptionsWithoutMethod = {}
-  ): Promise<XMLHttpRequest> {
+  public post: HTTPMethod = (url, options = {}) => {
     return this._request(url, { ...options, method: METHOD.POST });
-  }
+  };
 
-  public put(
-    url: string | URL,
-    options: OptionsWithoutMethod = {}
-  ): Promise<XMLHttpRequest> {
+  public put: HTTPMethod = (url, options = {}) => {
     return this._request(url, { ...options, method: METHOD.PUT });
-  }
+  };
 
-  public putch(
-    url: string | URL,
-    options: OptionsWithoutMethod = {}
-  ): Promise<XMLHttpRequest> {
+  public putch: HTTPMethod = (url, options = {}) => {
     return this._request(url, { ...options, method: METHOD.PATCH });
-  }
+  };
 
-  public delete(
-    url: string | URL,
-    options: OptionsWithoutMethod = {}
-  ): Promise<XMLHttpRequest> {
+  public delete: HTTPMethod = (url, options = {}) => {
     return this._request(url, { ...options, method: METHOD.DELETE });
-  }
+  };
 
   private _queryStringify(url: string, data: Record<string, unknown>): URL {
     if (typeof data !== 'object') {
