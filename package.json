@@ -14,7 +14,7 @@
   "license": "ISC",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel static/index.html --port 3000 --no-cache",
+    "start": "parcel static/index.html --port 3000 --no-cache --open",
     "build": "parcel build static/index.html --no-cache --public-url ./",
     "stylelint": "stylelint 'src/**/*.scss'",
     "stylelint:fix": "stylelint 'src/**/*.scss' --fix",
