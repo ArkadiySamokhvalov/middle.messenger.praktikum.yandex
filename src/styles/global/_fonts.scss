@@ -1,0 +1,21 @@
+/* Overpass-Regular */
+@font-face {
+  font-weight: 400;
+  font-family: Overpass;
+  font-style: normal;
+  src: local(""),
+    url("#{$path-to-static}/fonts/Overpass-Regular.woff2") format("woff2"),
+    /* Super Modern Browsers */
+      url("#{$path-to-static}/fonts/Overpass-Regular.woff") format("woff"); /* Modern Browsers */
+}
+
+/* Overpass-Bold */
+@font-face {
+  font-weight: 700;
+  font-family: Overpass;
+  font-style: normal;
+  src: local(""),
+    url("#{$path-to-static}/fonts/Overpass-Bold.woff2") format("woff2"),
+    /* Super Modern Browsers */
+      url("#{$path-to-static}/fonts/Overpass-Bold.woff") format("woff"); /* Modern Browsers */
+}

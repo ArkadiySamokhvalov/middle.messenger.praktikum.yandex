@@ -1,0 +1,32 @@
+@import "../../styles/helpers/_variables.scss";
+@import "../../styles/helpers/_functions.scss";
+@import "../../styles//helpers/_mixins.scss";
+
+.header {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: $darkBg;
+
+  // .header__content
+  &__content {
+    display: flex;
+    align-items: center;
+  }
+
+  // .header__group
+  &__group {
+    display: flex;
+    align-items: center;
+  }
+
+  // .header__icons
+  &__icons {
+    .button-icon {
+      padding: 5px;
+    }
+
+    @include media("sm") {
+      display: none;
+    }
+  }
+}

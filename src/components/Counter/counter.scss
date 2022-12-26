@@ -1,0 +1,21 @@
+@import "../../styles/helpers/_variables.scss";
+@import "../../styles/helpers/_functions.scss";
+@import "../../styles//helpers/_mixins.scss";
+
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: torem(2) torem(4) 0;
+  color: $textAccent;
+  font-weight: bold;
+  font-weight: 700;
+  font-size: torem(12);
+  background-color: $accent;
+  border-radius: 8px;
+
+  // .counter__text
+  &__text {
+    line-height: torem(12);
+  }
+}

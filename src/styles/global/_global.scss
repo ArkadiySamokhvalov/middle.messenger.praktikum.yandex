@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: $text;
+  font-weight: 400;
+  font-family: Overpass, Impact, Arial, sans-serif;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-image: url("#{$path-to-static}/img/default-chat-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @include media("sm") {
+    display: block;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+picture {
+  display: block;
+
+  img {
+    width: 100%;
+  }
+}
+
+.row-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.row-column {
+  display: flex;
+  flex-direction: column;
+}
