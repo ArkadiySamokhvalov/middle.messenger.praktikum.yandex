@@ -4,17 +4,11 @@
 
 .chat {
   flex-grow: 1;
-  height: 100%;
+  height: calc(100% - 60px);
   overflow-y: auto;
   background-color: $mainBg;
 
   @include media("sm") {
-    @include container("lg");
-
-    flex-grow: 0;
-    height: calc(100vh - 100px);
-    margin-top: 25px;
-    margin-bottom: 25px;
     overflow-y: initial;
     background-color: unset;
   }
@@ -41,7 +35,9 @@
     @include media("sm") {
       display: flex;
       flex-direction: column;
-      width: 276px;
+      min-width: 276px;
+      width: 20%;
+      max-width: 320px;
       background-color: $mainBg;
       border-top-left-radius: $border-radius;
       border-bottom-left-radius: $border-radius;
@@ -54,18 +50,16 @@
 
     @include media("sm") {
       display: flex;
+      align-items: center;
       padding: torem(12) torem(8);
       background-color: $darkBg;
     }
 
     .control {
       flex-grow: 1;
-      font-size: torem(12);
-    }
-
-    .button-icon {
-      padding: 5px;
-      padding-right: 0;
+      font-size: torem(16);
+      margin-right: torem(8);
+      height: 40px;
     }
   }
 
@@ -75,11 +69,40 @@
       padding-right: torem(8);
       padding-left: torem(8);
     }
+
     @include media("sm") {
       flex-grow: 1;
       overflow-y: auto;
     }
+
+    &_empty {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding-top: torem(20);
+
+      .chat__contacts-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .icon {
+          margin-left: torem(8);
+        }
+      }
+
+      .chat__contacts-text {
+          flex-grow: 1;
+          height: 100%;
+          align-self: center;
+          display: flex;
+          align-items: center;
+          font-size: torem(18);
+          color: $secondary;
+      }
+    }
   }
+
 
   // .chat__footer
   &__footer {
@@ -135,6 +158,8 @@
       display: flex;
       align-items: center;
       padding: torem(5) torem(8);
+      box-sizing: content-box;
+      height: 40px;
       background-color: $darkBg;
       border-top-right-radius: 5px;
 
@@ -145,19 +170,16 @@
 
       .avatar {
         margin-right: torem(8);
-        @include media("sm") {
-          display: none;
-        }
       }
 
       .row-column {
         flex-grow: 1;
+        justify-content: space-between;
+        height: 100%;
       }
 
-      .name {
-        @include media("sm") {
-          margin-bottom: 2.2px;
-        }
+      .time {
+        font-size: torem(14);
       }
     }
 
@@ -173,14 +195,14 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      display: none;
+      // display: none;
       width: calc(100% - 8px * 2);
       max-width: 320px;
       margin: 0 auto;
-      padding-top: torem(6);
-      padding-bottom: torem(6);
+      padding: torem(8) 0;
+
       color: $textAccent;
-      font-size: torem(14);
+      font-size: torem(16);
       text-align: center;
       background-color: $accent;
       border-radius: $border-radius;
@@ -189,34 +211,15 @@
 
     // .chat__dialog-footer
     &-footer {
-      display: flex;
-      padding: torem(12) torem(8);
+      display: none;
+      padding: torem(16) torem(12);
       background-color: $darkBg;
       border-top-right-radius: 5px;
 
       .control {
         flex-grow: 1;
-        margin-right: torem(5);
-        margin-left: torem(5);
-        font-size: torem(12);
-      }
-
-      .button-icon {
-        padding: 5px;
-      }
-
-      // .button-icon:first-child {
-      //   margin-right: torem(8);
-      // }
-
-      .button-icon:last-child {
-        padding: 0;
-        padding-top: 2px;
-
-        .icon {
-          width: 27px;
-          height: 27px;
-        }
+        margin: 0 torem(12);
+        font-size: torem(16);
       }
     }
   }

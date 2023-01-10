@@ -1,26 +1,36 @@
 import Block from '../../utils/Block';
-import renderDOM from '../../utils/renderDOM';
-import RoutePage from '..';
-import ChangePasswordPage from '../ChangePassword';
 import Validator from '../../utils/Validator';
+import Routes from '../../routes';
+import UsersController from '../../controllers/UsersController';
+import UsersAPI from '../../api/UsersAPI';
+import { UserProfileData } from '../../typings/types';
+import withStore from '../../hocs/withStore';
 
-export default class UserSettingsPage extends Block {
+const userController = new UsersController(new UsersAPI());
+
+class UserSettingsPageBase extends Block {
   constructor() {
     super();
-
-    this.setProps({
-      redirectToRoutePage: () => renderDOM('root', new RoutePage()),
-      redirectToChangePassword: () =>
-        renderDOM('root', new ChangePasswordPage()),
-    });
   }
 
   protected componentDidMount(): void {
-    const page = <HTMLElement>this.getContent();
-    const form = <HTMLFormElement>page.querySelector('form');
+    this.setProps({
+      changePasswordPage: Routes.ChangePassword,
+      userAvatar: this.props.data.avatar
+        ? `https://ya-praktikum.tech/api/v2/resources${this.props.data.avatar}`
+        : null,
+      displayName: this.props.data.display_name
+        ? this.props.data.display_name
+        : `${this.props.data.first_name} ${this.props.data.second_name}`,
+    });
 
-    const formValidator = new Validator(form, {
-      avatar: {},
+    const page = <HTMLElement>this.getContent();
+
+    const formProfile = <HTMLFormElement>(
+      page.querySelector('form[name="profile"]')
+    );
+
+    const formValidator = new Validator(formProfile, this._submitProfile, {
       email: {
         pattern: '^[\\w\\.]+@([\\w-]+.)+[\\w-]+$',
         message:
@@ -32,15 +42,16 @@ export default class UserSettingsPage extends Block {
           'От 3 до 20 символов. Допустимы: латиница, цифры, дефис и нижнее подчёркивание. Не используйте пробелы и другие спецсимволы.',
       },
       first_name: {
-        pattern: '^[\\wа-яА-Я-]+$',
+        pattern: '^[\\wёЁа-яА-Я-]+$',
         message:
           'Допустимы латиница или кириллица, дефис. Не используйте пробелы, цифры и другие спецсимволы.',
       },
       second_name: {
-        pattern: '^[\\wа-яА-Я-]+$',
+        pattern: '^[\\wёЁа-яА-Я-]+$',
         message:
           'Допустимы латиница или кириллица, дефис. Не используйте пробелы, цифры и другие спецсимволы.',
       },
+      display_name: {},
       phone: {
         pattern: '^[+]?[\\d]{10,15}$',
         message: 'Неверный формат номера.',
@@ -48,41 +59,81 @@ export default class UserSettingsPage extends Block {
     });
 
     formValidator.init();
+
+    const formAvatar = <HTMLFormElement>(
+      page.querySelector('form[name="avatar"]')
+    );
+    const inputAvatar = <HTMLInputElement>(
+      page.querySelector('input[name="avatar"]')
+    );
+
+    inputAvatar.addEventListener('change', () => {
+      console.log('jopa');
+      const formData = new FormData(formAvatar);
+      userController.updateUserAvatar(formData);
+    });
   }
 
-  render() {
+  private _submitProfile(e: Event) {
+    const form = <HTMLFormElement>e.currentTarget;
+    const formData = new FormData(form);
+    const data = [...formData].reduce(
+      (acc, [key, val]) => ({ ...acc, [key]: val }),
+      {}
+    );
+
+    console.log('submit ', data);
+
+    userController.updateUserProfile(<UserProfileData>data);
+  }
+
+  public render() {
     return `
       <div class="body">
-        <header class="header">
-          <div class="container header__content">
-            {{{ButtonIcon text="Вернуться назад" icon="back" onClick=redirectToRoutePage}}}
-            {{{Logo}}}
-          </div>
-        </header>
+        {{#Header}}
+          {{#Container className="header__content row-between"}}
+            <div class="row-between">
+              {{#Link to='back'}}
+                <div class="visually-hidden">Вернуться назад</div>
+                {{{Icon icon="back"}}}
+              {{/Link}}
+              {{{Logo}}}
+            </div>
+          {{/Container}}
+        {{/Header}}
 
-        <main class="main">
+        {{#Main}}
           {{#Title}}Настройки профиля{{/Title}}
 
-          <form class="form">
+          {{#Form name="avatar"}}
             <div class="form__group row-between">
-              {{{ControlFile name="avatar" accept="image/*"}}}
+              {{{ControlFile avatar=../userAvatar name="avatar" accept="image/*"}}}
 
-              {{#Link onClick=redirectToChangePassword}}
+              {{#Link to=../changePasswordPage}}
                 Изменить пароль
                 {{{Icon className="icon_reflected" icon="back"}}}
               {{/Link}}
             </div>
+          {{/Form}}
 
-            {{{ Control className="form__control" name="first_name" label="Имя" value="Аркадий" }}}
-            {{{ Control className="form__control" name="second_name" label="Фамилия" value="Самохвалов" }}}
-            {{{ Control className="form__control" name="login" label="Логин" value="mylogin" }}}
-            {{{ Control className="form__control" name="email" label="Почта" value="arkadii.samohvalov@bk.ru" }}}
-            {{{ Control className="form__control" name="phone" label="Телефон" value="+79515024652" }}}
+          {{#Form name="profile"}}
+            {{{ Control className="form__control" name="first_name" label="Имя" value=../data.first_name }}}
+            {{{ Control className="form__control" name="second_name" label="Фамилия" value=../data.second_name }}}
+            {{{ Control className="form__control" name="display_name" label="Отображаемое имя" value=../displayName}}}
+            {{{ Control className="form__control" name="login" label="Логин" value=../data.login }}}
+            {{{ Control className="form__control" name="email" label="Почта" value=../data.email }}}
+            {{{ Control className="form__control" name="phone" label="Телефон" value=../data.phone }}}
 
-            {{#ButtonPrimary className="form__submit" type="submit"}}Сохранить{{/ButtonPrimary}}
-          </form>
-        </main>
+            {{#Button btnName="primary" className="form__submit button_full" type="submit"}}Сохранить{{/Button}}
+          {{/Form}}
+        {{/Main}}
       </div>
     `;
   }
 }
+
+const withUser = withStore((state) => {
+  return { ...state.user };
+});
+const UserSettingsPage = withUser(UserSettingsPageBase);
+export default UserSettingsPage;

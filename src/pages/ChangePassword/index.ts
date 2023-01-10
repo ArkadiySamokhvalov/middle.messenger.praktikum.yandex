@@ -1,14 +1,19 @@
 import Block from '../../utils/Block';
-import renderDOM from '../../utils/renderDOM';
-import UserSettingsPage from '../UserSettings';
 import Validator from '../../utils/Validator';
+import Routes from '../../routes';
+import UsersController from '../../controllers/UsersController';
+import UsersAPI from '../../api/UsersAPI';
+import { UserChangePasswordData } from '../../typings/types';
+import withStore from '../../hocs/withStore';
 
-export default class ChangePasswordPage extends Block {
+const userController = new UsersController(new UsersAPI());
+
+class ChangePasswordPageBase extends Block {
   constructor() {
     super();
 
     this.setProps({
-      redirectToUserSettings: () => renderDOM('root', new UserSettingsPage()),
+      UserSettingsPage: () => Routes.UserSettings,
     });
   }
 
@@ -16,44 +21,67 @@ export default class ChangePasswordPage extends Block {
     const page = <HTMLElement>this.getContent();
     const form = <HTMLFormElement>page.querySelector('form');
 
-    const formValidator = new Validator(form, {
-      old_password: {},
-      new_password: {
+    const formValidator = new Validator(form, this._onSubmit, {
+      oldPassword: {},
+      newPassword: {
         pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,40}$',
         message:
           'От 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра.',
       },
-      new_password_repeat: {
+      newPasswordRepeat: {
         message: 'Пароли не совпадают.',
-        sameAs: 'new_password',
+        sameAs: 'newPassword',
       },
     });
 
     formValidator.init();
   }
 
-  render() {
+  private _onSubmit(e: Event) {
+    const form = <HTMLFormElement>e.currentTarget;
+    const formData = new FormData(form);
+
+    formData.delete('new_password_repeat');
+
+    const data = [...formData].reduce(
+      (acc, [key, val]) => ({ ...acc, [key]: val }),
+      {}
+    );
+
+    userController.updateUserPassword(<UserChangePasswordData>data);
+  }
+
+  public render() {
     return `
       <div class="body">
-        <header class="header">
-          <div class="container header__content">
-            {{{ButtonIcon text="Вернуться назад" icon="back" onClick=redirectToUserSettings}}}
+        {{#Header}}
+          {{#Container className="header__content"}}
+            {{#Link to="back" className="someClass"}}
+              <div class="visually-hidden">Вернуться назад</div>
+              {{{Icon icon="back"}}}
+            {{/Link}}
             {{{Logo}}}
-          </div>
-        </header>
+          {{/Container}}
+        {{/Header}}
 
-        <main class="main">
+        {{#Main}}
           {{#Title}}Изменить пароль{{/Title}}
 
-          <form class="form">
-            {{{ControlPassword className="form__control" name="old_password" label="Старый пароль" value="Qwerty12345" disabled="true"}}}
-            {{{ControlPassword className="form__control" name="new_password" label="Новый пароль"}}}
-            {{{ControlPassword className="form__control" name="new_password_repeat" label="Повторите новый пароль"}}}
+          {{#Form}}
+            {{{ControlPassword className="form__control" name="oldPassword" label="Старый пароль" value=../data.password readonly="true"}}}
+            {{{ControlPassword className="form__control" name="newPassword" label="Новый пароль"}}}
+            {{{ControlPassword className="form__control" name="newPasswordRepeat" label="Повторите новый пароль"}}}
 
-            {{#ButtonPrimary className="form__submit" type="submit"}}Сохранить{{/ButtonPrimary}}
-          </form>
-        </main>
+            {{#Button btnName="primary" className="button_full form__submit" type="submit"}}Сохранить{{/Button}}
+          {{/Form}}
+        {{/Main}}
       </div>
     `;
   }
 }
+
+const withUser = withStore((state) => {
+  return { ...state.user };
+});
+const ChangePasswordPage = withUser(ChangePasswordPageBase);
+export default ChangePasswordPage;

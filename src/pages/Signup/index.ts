@@ -1,17 +1,20 @@
 import '../../styles/_base.scss';
 import Block from '../../utils/Block';
-import renderDOM from '../../utils/renderDOM';
-import LoginPage from '../Login';
-import RoutePage from '..';
 import Validator from '../../utils/Validator';
+import AuthController from '../../controllers/AuthController';
+import { SignupData } from '../../typings/types';
+import Routes from '../../routes';
+import AuthAPI from '../../api/AuthAPI';
+import Router from '../../utils/Router';
+
+const authController = new AuthController(new AuthAPI(), new Router());
 
 export default class SignupPage extends Block {
   constructor() {
     super();
 
     this.setProps({
-      redirectToLogin: () => renderDOM('root', new LoginPage()),
-      redirectToRoutePage: () => renderDOM('root', new RoutePage()),
+      loginLink: Routes.Index,
     });
   }
 
@@ -19,7 +22,7 @@ export default class SignupPage extends Block {
     const page = <HTMLElement>this.getContent();
     const form = <HTMLFormElement>page.querySelector('form');
 
-    const formValidator = new Validator(form, {
+    const formValidator = new Validator(form, this._onSubmit, {
       email: {
         pattern: '^[\\w\\.]+@([\\w-]+.)+[\\w-]+$',
         message:
@@ -58,20 +61,30 @@ export default class SignupPage extends Block {
     formValidator.init();
   }
 
-  render() {
+  private _onSubmit(e: Event) {
+    const form = <HTMLFormElement>e.currentTarget;
+    const formData = new FormData(form);
+    const data = [...formData].reduce(
+      (acc, [key, val]) => ({ ...acc, [key]: val }),
+      {}
+    );
+
+    authController.signup(<SignupData>data);
+  }
+
+  public render() {
     return `
       <div class="body">
-        <header class="header">
-          <div class="container header__content">
-            {{{ButtonIcon text="Вернуться назад" icon="back" onClick=redirectToRoutePage}}}
+        {{#Header}}
+          {{#Container className="header__content"}}
             {{{Logo}}}
-          </div>
-        </header>
+          {{/Container}}
+        {{/Header}}
 
-        <main class="main">
+        {{#Main}}
           {{#Title}}Регистрация{{/Title}}
 
-          <form class="form">
+          {{#Form}}
             {{{Control className="form__control" name="email" label="Почта"}}}
             {{{Control className="form__control" name="login" label="Логин"}}}
             {{{Control className="form__control" name="first_name" label="Имя"}}}
@@ -81,15 +94,15 @@ export default class SignupPage extends Block {
             {{{ControlPassword className="form__control" name="password" label="Пароль"}}}
             {{{ControlPassword className="form__control" name="password_repeat" label="Повторите пароль"}}}
 
-            {{#ButtonPrimary type="submit" className="form__submit"}}
+            {{#Button btnName="primary" type="submit" className="button_full form__submit"}}
               Создать аккаунт
-            {{/ButtonPrimary}}
+            {{/Button}}
 
-            {{#Link className="form__link" onClick=redirectToLogin}}
+            {{#Link className="form__link" to=../loginLink}}
               Уже зарегистрированы? Войти.
             {{/Link}}
-          </form>
-        </main>
+          {{/Form}}
+        {{/Main}}
       </div>
     `;
   }

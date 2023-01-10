@@ -1,25 +1,33 @@
 import '../../styles/_base.scss';
 import Block from '../../utils/Block';
-import renderDOM from '../../utils/renderDOM';
-import SignupPage from '../Signup';
-import RoutePage from '..';
 import Validator from '../../utils/Validator';
+import Routes from '../../routes';
+import AuthController from '../../controllers/AuthController';
+import { SigninData } from '../../typings/types';
+import AuthAPI from '../../api/AuthAPI';
+import Router from '../../utils/Router';
+import withStore from '../../hocs/withStore';
 
-export default class LoginPage extends Block {
+const authController = new AuthController(new AuthAPI(), new Router());
+
+const loginErrors = {
+  'Login or password is incorrect': 'Неверный логин или пароль',
+};
+
+class LoginPageBase extends Block {
   constructor() {
     super();
 
     this.setProps({
-      redirectToRoutePage: () => renderDOM('root', new RoutePage()),
-      redirectToSignupPage: () => renderDOM('root', new SignupPage()),
+      signupLink: Routes.SignUp,
     });
   }
 
-  protected componentDidMount(): void {
+  protected componentDidMount() {
     const page = <HTMLElement>this.getContent();
     const form = <HTMLFormElement>page.querySelector('form');
 
-    const formValidator = new Validator(form, {
+    const formValidator = new Validator(form, this._onSubmit, {
       login: {
         pattern: '^[\\w_-]{2,19}[0-9a-zA-Z]$',
         message:
@@ -35,34 +43,55 @@ export default class LoginPage extends Block {
     formValidator.init();
   }
 
-  render() {
+  private async _onSubmit(e: Event) {
+    const form = <HTMLFormElement>e.currentTarget;
+    const formData = new FormData(form);
+    const data = [...formData].reduce(
+      (acc, [key, val]) => ({ ...acc, [key]: val }),
+      {}
+    );
+
+    authController.signin(<SigninData>data);
+  }
+
+  public render() {
     return `
       <div class="body">
-        <header class="header">
-          <div class="container header__content">
-            {{{ButtonIcon text="Вернуться назад" icon="back" onClick=redirectToRoutePage}}}
+        {{#Header}}
+          {{#Container className="header__content"}}
             {{{Logo}}}
-          </div>
-        </header>
+          {{/Container}}
+        {{/Header}}
 
-        <main class="main">
+        {{#Main isLoading=isLoading}}
           {{#Title}}Авторизация{{/Title}}
 
-          <form class="form">
+          {{#Form}}
             {{{Control className="form__control" name="login" label="Логин"}}}
 
             {{{ControlPassword className="form__control" name="password" label="Пароль"}}}
 
-            {{#ButtonPrimary type="submit" className="form__submit"}}
-              Войти
-            {{/ButtonPrimary}}
+            {{#if ../error}}
+              <div class="form__error">{{../error}}</div>
+            {{/if}}
 
-            {{#Link className="form__link" onClick=redirectToSignupPage}}
+            {{#Button btnName="primary" type="submit" className="button_full form__submit"}}
+              Войти
+            {{/Button}}
+
+            {{#Link className="form__link" to=../signupLink}}
               Нет аккаунта?
             {{/Link}}
-          </form>
-        </main>
+          {{/Form}}
+          {{{Icon className="main__loader" icon="loader"}}}
+        {{/Main}}
       </div>
     `;
   }
 }
+
+const withUser = withStore((state) => {
+  return { ...state.user };
+});
+const LoginPage = withUser(LoginPageBase);
+export default LoginPage;
