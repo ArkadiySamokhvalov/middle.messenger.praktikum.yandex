@@ -2,19 +2,25 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  height: 100%;
+}
+
+
 body {
   color: $text;
   font-weight: 400;
   font-family: Overpass, Impact, Arial, sans-serif;
+  font-size: torem(20);
+  background-image: url("#{$path-to-static}/img/default-chat-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .body {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background-image: url("#{$path-to-static}/img/default-chat-background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  height: 100%;
 
   @include media("sm") {
     display: block;
