@@ -5,6 +5,7 @@ type ControlFileProps = {
   label?: string;
   name: string;
   value?: string;
+  avatar?: string;
 };
 
 export default class ControlFile extends Block {
@@ -18,7 +19,11 @@ export default class ControlFile extends Block {
     return `
       <div class='control control_file'>
         <label class='control__label' for='{{name}}'>
-          {{{Icon className="control__icon" icon="image"}}}
+          {{#if avatar}}
+            {{{Avatar className="avatar_full" img=avatar}}}
+          {{else}}
+            {{{Icon className="control__icon" icon="image"}}}
+          {{/if}}
         </label>
 
         <input

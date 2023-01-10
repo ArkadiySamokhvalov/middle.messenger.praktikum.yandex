@@ -1,28 +1,41 @@
-import Block from '../../utils/Block';
 import './link.scss';
+import Block from '../../utils/Block';
+import withRouter from '../../hocs/withRouter';
 
 type LinkProps = {
-  text: string;
+  to: string;
+  text?: string;
   className?: string;
-  onClick?: () => void;
 };
 
-export default class Link extends Block {
+class BaseLink extends Block {
   public static componentName = 'Link';
-
-  constructor({ text, className, onClick }: LinkProps) {
+  constructor(props: LinkProps) {
     super({
-      text,
-      className,
+      ...props,
+      className: props.className ? `link ${props.className}` : 'link',
       events: {
-        click: onClick,
+        click: () => this._navigate(),
       },
     });
   }
 
-  render() {
+  private _navigate() {
+    if (this.props.to === 'back') {
+      this.props.router.back();
+    } else {
+      this.props.router.go(this.props.to);
+    }
+  }
+
+  public render() {
     return `
-      <a class="link {{className}}">{{text}}</a>
+      <a class="{{className}}">
+      {{text}}
+      </a>
     `;
   }
 }
+
+const Link = withRouter(BaseLink);
+export default Link;

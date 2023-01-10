@@ -4,6 +4,7 @@ import './main.scss';
 type MainProps = {
   className?: string;
   onSubmit?: () => void;
+  isLoading?: boolean;
 };
 
 export default class Main extends Block {
@@ -11,13 +12,11 @@ export default class Main extends Block {
 
   constructor(props: MainProps) {
     super(props);
-
-    console.log(props);
   }
 
   render() {
     return `
-      <main class="main"></main>
+      <main class="main {{#if isLoading}}main_loading{{/if}}"></main>
     `;
   }
 }

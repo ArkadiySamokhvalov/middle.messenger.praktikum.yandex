@@ -28,7 +28,7 @@ export default class Control extends Block {
           name="{{name}}"
           id="{{name}}"
           type='text'
-          autocomplete
+          autocomplete="on"
 
           {{#if value }}
             value="{{value}}"

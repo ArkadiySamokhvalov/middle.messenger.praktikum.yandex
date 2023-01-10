@@ -4,4 +4,5 @@
 
 .container {
   @include container("lg");
+  max-width: 100%;
 }

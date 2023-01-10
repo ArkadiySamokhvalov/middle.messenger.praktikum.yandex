@@ -8,12 +8,13 @@
     display: block;
     margin-bottom: torem(5);
     cursor: pointer;
+    font-size: torem(18);
   }
 
   // .control__input
   &__input {
     width: 100%;
-    padding: 8px;
+    padding: torem(10);
     color: $textAccent;
     background-color: $inputBg;
     border: none;
@@ -25,13 +26,20 @@
       outline: none;
       box-shadow: inset 0 -3px 0 0 $blue;
     }
+
+    &:read-only {
+      &:hover,
+      &:focus-visible {
+        box-shadow: none;
+      }
+    }
   }
 
   // .control__feedback
   &__feedback {
     display: none;
-    margin-top: torem(8);
+    margin-top: torem($px);
     color: $red;
-    font-size: torem(12);
+    font-size: torem(14);
   }
 }

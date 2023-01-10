@@ -1,0 +1,31 @@
+@import "../../styles/helpers/_variables.scss";
+@import "../../styles/helpers/_functions.scss";
+@import "../../styles//helpers/_mixins.scss";
+
+.menu {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+
+  // .menu__item
+  &__item {
+    width: 100%;
+    padding: 0;
+    line-height: torem(20);
+  }
+
+  // .menu__button
+  &__button {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+  }
+
+  // .menu__text
+  &__text {
+    display: inline-block;
+    margin-left: torem(8);
+    font-size: torem(16);
+    height: torem(14);
+  }
+}

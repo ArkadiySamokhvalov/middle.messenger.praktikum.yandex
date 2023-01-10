@@ -7,6 +7,22 @@
   width: 40px;
   height: 40px;
 
+  // .avatar_empty
+  &_empty {
+    background-color: burlywood;
+    background-image: linear-gradient(burlywood, $mainHover);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // .avatar_full
+  &_full {
+    width: auto;
+    height: auto;
+  }
+
   // .avatar__picture
   &__picture {
     width: 100%;

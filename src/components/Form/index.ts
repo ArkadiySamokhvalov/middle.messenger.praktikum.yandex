@@ -3,24 +3,26 @@ import './form.scss';
 
 type FormProps = {
   className?: string;
-  onSubmit?: () => void;
+  name?: string;
 };
 
 export default class Form extends Block {
   public static componentName = 'Form';
 
-  constructor({ className, onSubmit }: FormProps) {
-    super({
-      className,
-      events: {
-        submit: onSubmit,
-      },
+  constructor(props: FormProps) {
+    super(props);
+    this.setProps({
+      classes: props.className ? `form ${props.className}` : 'form',
     });
   }
 
   render() {
     return `
-      <form class="form {{className}}"></form>
+      <form
+        {{#if name}}name="{{name}}"{{/if}}
+        class="{{classes}}"
+      >
+      </form>
     `;
   }
 }

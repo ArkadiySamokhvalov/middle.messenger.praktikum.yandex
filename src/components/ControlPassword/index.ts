@@ -57,8 +57,8 @@ export default class ControlPassword extends Block {
             type='password'
             autocomplete
 
-            {{#if disabled }}
-              disabled
+            {{#if readonly }}
+              readonly="readonly"
             {{/if}}
 
             {{#if value }}
