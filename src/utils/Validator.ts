@@ -12,14 +12,14 @@ type Control = {
 };
 
 export default class Validator {
-  private _settings: Settings;
-  private _form: HTMLFormElement;
   private _errors: Set<string> = new Set();
   private _controls: Control[] = [];
 
-  constructor(form: HTMLFormElement, settings: Settings) {
-    this._form = form;
-    this._settings = settings;
+  constructor(
+    private _form: HTMLFormElement,
+    private _handleSubmit: (e: Event) => void,
+    private _settings: Settings
+  ) {
     this._controls = this._getControls(this.form);
   }
 
@@ -30,7 +30,7 @@ export default class Validator {
   }
 
   private _setHandleSubmit() {
-    this.form.addEventListener('submit', (e) => this._handleSubmit(e));
+    this.form.addEventListener('submit', (e) => this._onSubmit(e));
   }
 
   private _setHandleBlur() {
@@ -54,7 +54,7 @@ export default class Validator {
     });
   }
 
-  private _handleSubmit(e: Event) {
+  private _onSubmit(e: Event) {
     e.preventDefault();
 
     this.controls.forEach(({ input, feedback }) => {
@@ -62,7 +62,7 @@ export default class Validator {
     });
 
     if (this._validateForm()) {
-      this._printFormData();
+      this._handleSubmit(e);
     }
   }
 
@@ -119,18 +119,6 @@ export default class Validator {
   private _validate(pattern: string | RegExp, value: string) {
     const regex = new RegExp(pattern, 'i');
     return regex.test(value);
-  }
-
-  private _printFormData() {
-    const formData = new FormData(this.form);
-    const data = [...formData].reduce(
-      (acc, [key, val]) => ({ ...acc, [key]: val }),
-      {}
-    );
-
-    console.group('Данные формы:');
-    console.log(data);
-    console.groupEnd();
   }
 
   private _getControls(form: HTMLFormElement) {

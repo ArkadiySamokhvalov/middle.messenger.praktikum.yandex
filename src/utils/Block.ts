@@ -1,20 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import isEqual from './helpers/isEqual';
 
-type BlockEvents<P = any> = {
-  init: [];
-  'flow:component-did-mount': [];
-  'flow:component-did-update': [P, P];
-  'flow:render': [];
-};
-
-type Props<P extends Record<string, unknown> = any> = {
+type Props<P extends Record<string, any> = any> = {
   events?: Record<string, () => void>;
 } & P;
 
-export default class Block<P extends Record<string, unknown> = any> {
+export default class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -23,7 +16,7 @@ export default class Block<P extends Record<string, unknown> = any> {
   } as const;
   public static componentName: string;
   private _element: HTMLElement | null = null;
-  private _eventBus: () => EventBus<BlockEvents<Props<P>>>;
+  private _eventBus: () => EventBus;
   protected props: Props<P>;
   public children: Record<string, Block>;
   public id = nanoid(6);
@@ -34,7 +27,7 @@ export default class Block<P extends Record<string, unknown> = any> {
     this.children = children;
     this.initChildren();
 
-    const eventBus = new EventBus<BlockEvents<Props<P>>>();
+    const eventBus = new EventBus();
     this._eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -44,7 +37,7 @@ export default class Block<P extends Record<string, unknown> = any> {
     props: Props<P>;
     children: Record<string, Block>;
   } {
-    const props = {} as Record<string, unknown>;
+    const props = {} as Record<string, any>;
     const children: Record<string, Block> = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
@@ -79,7 +72,7 @@ export default class Block<P extends Record<string, unknown> = any> {
 
   protected initChildren() {}
 
-  private _registerEvents(eventBus: EventBus<BlockEvents>) {
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -112,6 +105,7 @@ export default class Block<P extends Record<string, unknown> = any> {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
+    if (isEqual(oldProps, newProps)) return false;
     return true;
   }
 
@@ -132,8 +126,10 @@ export default class Block<P extends Record<string, unknown> = any> {
     this._addEvents();
   }
 
-  protected render(): string {
-    return '';
+  protected render(template?: string): string {
+    return `
+      ${template}
+    `;
   }
 
   private _addEvents() {
