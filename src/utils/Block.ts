@@ -1,13 +1,11 @@
-import EventBus from './EventBus';
-import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
-import isEqual from './helpers/isEqual';
+import { nanoid } from 'nanoid';
 
-type Props<P extends Record<string, any> = any> = {
-  events?: Record<string, () => void>;
-} & P;
+import { EventBus } from './EventBus';
+import { isEqual } from './helpers/isEqual';
+import { Props } from '../typings/types';
 
-export default class Block<P extends Record<string, any> = any> {
+export class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -80,8 +78,11 @@ export default class Block<P extends Record<string, any> = any> {
   }
 
   private _init() {
+    this.init();
     this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
+
+  protected init() {}
 
   private _componentDidMount() {
     this.componentDidMount();
@@ -103,7 +104,6 @@ export default class Block<P extends Record<string, any> = any> {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
     if (isEqual(oldProps, newProps)) return false;
     return true;
@@ -169,7 +169,18 @@ export default class Block<P extends Record<string, any> = any> {
       const content = component.getContent();
 
       if (content) {
-        content.append(...Array.from(stub.childNodes));
+        const elems = Array.from(stub.childNodes);
+        const childPlace = content.querySelector('[data-children]');
+
+        if (childPlace) {
+          const parent = childPlace.parentNode;
+          elems.forEach((elem) => parent?.insertBefore(elem, childPlace));
+          childPlace.remove();
+          stub.replaceWith(content);
+        } else {
+          content.append(...elems);
+        }
+
         stub.replaceWith(content);
       }
     });
@@ -181,7 +192,7 @@ export default class Block<P extends Record<string, any> = any> {
     return document.createElement(tagName);
   }
 
-  public setProps = (nextProps: Partial<Props<P>>) => {
+  public setProps = (nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }
