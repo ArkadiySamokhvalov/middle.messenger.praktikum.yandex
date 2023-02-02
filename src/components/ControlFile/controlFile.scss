@@ -1,4 +1,6 @@
-@import "../Control/control.scss";
+@import "../../styles/helpers/_variables.scss";
+@import "../../styles/helpers/_functions.scss";
+@import "../../styles//helpers/_mixins.scss";
 
 .control_file {
   .control__label {

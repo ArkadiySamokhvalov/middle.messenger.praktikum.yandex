@@ -1,6 +1,6 @@
 import './link.scss';
-import Block from '../../utils/Block';
-import withRouter from '../../hocs/withRouter';
+import { Block } from '../../utils/Block';
+import { withRouter } from '../../hocs/withRouter';
 
 type LinkProps = {
   to: string;

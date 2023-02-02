@@ -1,76 +1,60 @@
-import Block from '../../utils/Block';
 import './controlPassword.scss';
+import { T_Validation } from '../../typings/types';
+import Control from '../Control';
 
-type ControlPasswordProps = {
-  label?: string;
+type ControlProps = {
   name: string;
+  validation: T_Validation;
+  className?: string;
+  label?: string;
   value?: string;
   placeholder?: string;
-  className?: string;
-  disabled?: string;
+  readonly?: string;
 };
 
-export default class ControlPassword extends Block {
+export default class ControlPassword extends Control {
   public static componentName = 'ControlPassword';
 
-  constructor(props: ControlPasswordProps) {
-    super(props);
-  }
+  constructor(props: ControlProps) {
+    super({
+      ...props,
+      className: props.className
+        ? `control control_password ${props.className}`
+        : 'control control_password',
+    });
 
-  protected componentDidMount(): void {
-    const component = this.getContent();
+    this.setProps({
+      showPass: (e: Event) => {
+        const button = <HTMLButtonElement>e?.currentTarget;
+        const input = <HTMLInputElement>button.nextElementSibling;
 
-    if (component) {
-      const input = component.querySelector('.control__input');
-      const icons = [...component.querySelectorAll('.control__icon')];
+        const type =
+          input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', type);
 
-      icons.forEach((icon) => {
-        icon.addEventListener('click', () => {
-          const type =
-            input?.getAttribute('type') === 'password' ? 'text' : 'password';
-          input?.setAttribute('type', type);
-
-          const useSelector = icon.querySelector('use');
-          const path = useSelector?.getAttribute('href');
-          const index = path?.indexOf('#');
-
-          if (index) {
-            const substr = path.substring(index + 1);
-            const svg = substr === 'eye' ? 'eye-off' : 'eye';
-            const newPath = path?.replace(substr, svg);
-            useSelector.setAttribute('href', newPath);
-          }
-        });
-      });
-    }
+        const useSelector = <SVGUseElement>button.querySelector('use');
+        const path = <string>useSelector.getAttribute('href');
+        const index = path.indexOf('#');
+        const substr = path.substring(index + 1);
+        const svg = substr === 'eye' ? 'eye-off' : 'eye';
+        const newPath = path.replace(substr, svg);
+        useSelector.setAttribute('href', newPath);
+      },
+    });
   }
 
   render() {
     return `
-      <div class='control control_password {{className}}'>
-        <label class='control__label' for='{{name}}'>{{label}}</label>
-        <div class='control__input-wrapper'>
-          <input
-            class='control__input'
-            name='{{name}}'
-            id='{{name}}'
-            type='password'
-            autocomplete
+      <div class="{{className}}">
+        {{#if label}}
+          <label class="control__label" for="{{name}}">{{label}}</label>
+        {{/if}}
 
-            {{#if readonly }}
-              readonly="readonly"
-            {{/if}}
-
-            {{#if value }}
-              value="{{value}}"
-            {{/if}}
-
-            {{#if placeholder }}
-              placeholder="{{placeholder}}"
-            {{/if}}
-          />
-          {{{Icon className="control__icon" icon="eye"}}}
+        <div class="control__input-wrapper">
+          {{{Button onClick=showPass className="control__icon" btnName="icon" type="button" text="Показать пароль" icon="eye"}}}
+          {{{Input type="password" className="control__input" settings=settings}}}
         </div>
+
         <div class="control__feedback"></div>
       </div>
     `;

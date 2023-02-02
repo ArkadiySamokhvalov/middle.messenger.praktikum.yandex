@@ -1,12 +1,15 @@
-import Block from '../../utils/Block';
 import './control.scss';
+import { T_Validation } from '../../typings/types';
+import { Block } from '../../utils/Block';
 
 type ControlProps = {
-  label?: string;
   name: string;
+  validation?: T_Validation;
+  className?: string;
+  label?: string;
   value?: string;
   placeholder?: string;
-  className?: string;
+  readonly?: string;
 };
 
 export default class Control extends Block {
@@ -14,30 +17,28 @@ export default class Control extends Block {
 
   constructor(props: ControlProps) {
     super(props);
+
+    this.setProps({
+      settings: {
+        name: props.name,
+        validation: props.validation,
+        value: props.value,
+        placeholder: props.placeholder,
+        readonly: props.readonly,
+        feedback: this.getContent()?.querySelector('.control__feedback'),
+      },
+      className: props.className ? `control ${props.className}` : 'control',
+    });
   }
 
   render() {
     return `
-      <div class='control {{className}}'>
+      <div class="{{className}}">
         {{#if label}}
-          <label class='control__label' for='{{name}}'>{{label}}</label>
+          <label class="control__label" for="{{name}}">{{label}}</label>
         {{/if}}
 
-        <input
-          class='control__input'
-          name="{{name}}"
-          id="{{name}}"
-          type='text'
-          autocomplete="on"
-
-          {{#if value }}
-            value="{{value}}"
-          {{/if}}
-
-          {{#if placeholder }}
-            placeholder="{{placeholder}}"
-          {{/if}}
-        />
+        {{{Input className="control__input" settings=settings}}}
 
         <div class="control__feedback"></div>
       </div>

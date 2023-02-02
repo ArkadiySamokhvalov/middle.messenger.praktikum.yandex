@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import { Block } from '../../utils/Block';
 import './button.scss';
 
 type ButtonProps = {
@@ -13,31 +13,28 @@ type ButtonProps = {
 export default class Button extends Block {
   public static componentName = 'Button';
 
-  constructor({ btnName, type, className, icon, text, onClick }: ButtonProps) {
+  constructor(props: ButtonProps) {
     super({
-      btnName,
-      type,
-      className,
-      icon,
-      text,
+      ...props,
+      className: props.className
+        ? `button button__${props.btnName} ${props.className}`
+        : `button button__${props.btnName}`,
       events: {
-        click: onClick,
+        click: props.onClick,
       },
     });
   }
 
   render() {
     return `
-      <button
-        class="button button__{{btnName}} {{className}}"
-        type="{{type}}"
-      >
-        {{#if text}}
-          {{{ VisuallyHidden text=text }}}
-        {{/if}}
-
+      <button class="{{className}}" type="{{type}}">
         {{#if icon}}
           {{{ Icon icon=icon }}}
+          {{#if text}}
+            {{{ VisuallyHidden text=text }}}
+          {{/if}}
+        {{else}}
+          {{text}}
         {{/if}}
       </button>
     `;

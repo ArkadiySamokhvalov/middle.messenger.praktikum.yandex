@@ -1,50 +1,43 @@
 import './modal.scss';
-import Block from '../../utils/Block';
+import { Block } from '../../utils/Block';
 
 type ModalProps = {
+  id: string;
   className?: string;
-  child?: Block;
 };
 
 export default class Modal extends Block {
   public static componentName = 'Modal';
 
   constructor(props: ModalProps) {
-    super(props);
-
-    this.setProps({
-      classes: this.props.className ? `modal ${this.props.className}` : 'modal',
+    super({
+      ...props,
+      className: props.className ? `modal ${props.className}` : 'modal',
+      events: {
+        click: (e: Event) => {
+          const modalContent = <HTMLElement>(
+            this.getContent()?.querySelector('.modal__content')
+          );
+          if (!e.composedPath().includes(modalContent)) {
+            this.getContent()?.classList.remove('modal_active');
+          }
+        },
+      },
+      closeModal: () => {
+        this.getContent()?.classList.remove('modal_active');
+      },
     });
-  }
 
-  protected componentDidMount() {
-    const component = <HTMLElement>this.element;
-    const modal = component.querySelector('.modal');
-    const modalContent = component.querySelector('.modal__content');
-    const closeButtons = modal?.querySelectorAll('.modal__close');
-
-    document.addEventListener('click', (e) => {
-      if (!e.composedPath().includes(modalContent)) {
-        modal?.classList.remove('modal_active');
-      }
-    });
-
-    document.addEventListener('keydown', function (e) {
+    document.addEventListener('keydown', (e) => {
       if (e.code === 'Escape') {
-        modal?.classList.remove('modal_active');
+        this.getContent()?.classList.remove('modal_active');
       }
-    });
-
-    closeButtons?.forEach((closeButton) => {
-      closeButton?.addEventListener('click', () => {
-        modal?.classList.remove('modal_active');
-      });
     });
   }
 
   public render() {
     return `
-      <div class="{{classes}}">
+      <div id="{{id}}" class="{{className}}">
         <div class="modal__content">
           <div class="modal__header">
             {{{Button
@@ -58,7 +51,7 @@ export default class Modal extends Block {
           </div>
 
           <div class="modal__body">
-            {{{child}}}
+            <div data-children></div>
           </div>
         </div>
       </div>

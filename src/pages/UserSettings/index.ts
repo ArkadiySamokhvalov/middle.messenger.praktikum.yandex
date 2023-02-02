@@ -1,90 +1,59 @@
-import Block from '../../utils/Block';
-import Validator from '../../utils/Validator';
-import Routes from '../../routes';
+import { Block } from '../../utils/Block';
+import { Routes } from '../../routes';
+import { withStore } from '../../hocs/withStore';
+import Store from '../../utils/Store';
+import { T_UserProfileData } from '../../typings/types';
+import { formDataToObj } from '../../utils/helpers/formDataToObj';
 import UsersController from '../../controllers/UsersController';
-import UsersAPI from '../../api/UsersAPI';
-import { UserProfileData } from '../../typings/types';
-import withStore from '../../hocs/withStore';
-
-const userController = new UsersController(new UsersAPI());
 
 class UserSettingsPageBase extends Block {
   constructor() {
-    super();
-  }
+    const state = Store.getState();
 
-  protected componentDidMount(): void {
-    this.setProps({
+    super({
+      ...state.user.data,
+      chatPage: Routes.Chat,
       changePasswordPage: Routes.ChangePassword,
-      userAvatar: this.props.data.avatar
-        ? `https://ya-praktikum.tech/api/v2/resources${this.props.data.avatar}`
-        : null,
-      displayName: this.props.data.display_name
-        ? this.props.data.display_name
-        : `${this.props.data.first_name} ${this.props.data.second_name}`,
-    });
-
-    const page = <HTMLElement>this.getContent();
-
-    const formProfile = <HTMLFormElement>(
-      page.querySelector('form[name="profile"]')
-    );
-
-    const formValidator = new Validator(formProfile, this._submitProfile, {
-      email: {
-        pattern: '^[\\w\\.]+@([\\w-]+.)+[\\w-]+$',
+      submitUserSettings: (e: Event) => {
+        const form = <HTMLFormElement>e.currentTarget;
+        const formData = new FormData(form);
+        const data = formDataToObj(formData);
+        delete data.avatar;
+        UsersController.updateUserAvatar(formData);
+        UsersController.updateUserProfile(<T_UserProfileData>data);
+      },
+      emailValidation: {
+        pattern:
+          '^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$',
         message:
           'Допустимы латиница, цифры и спецсимволы вроде дефиса, обязательно должна быть «собака» (@) и точка после неё, но перед точкой обязательно должны быть буквы.',
       },
-      login: {
+      loginValidation: {
         pattern: '^[\\w_-]{2,19}[0-9a-zA-Z]$',
         message:
           'От 3 до 20 символов. Допустимы: латиница, цифры, дефис и нижнее подчёркивание. Не используйте пробелы и другие спецсимволы.',
       },
-      first_name: {
+      firstNameValidation: {
         pattern: '^[\\wёЁа-яА-Я-]+$',
         message:
           'Допустимы латиница или кириллица, дефис. Не используйте пробелы, цифры и другие спецсимволы.',
       },
-      second_name: {
+      secondNameValidation: {
         pattern: '^[\\wёЁа-яА-Я-]+$',
         message:
           'Допустимы латиница или кириллица, дефис. Не используйте пробелы, цифры и другие спецсимволы.',
       },
-      display_name: {},
-      phone: {
+      phoneValidation: {
         pattern: '^[+]?[\\d]{10,15}$',
         message: 'Неверный формат номера.',
       },
     });
 
-    formValidator.init();
-
-    const formAvatar = <HTMLFormElement>(
-      page.querySelector('form[name="avatar"]')
-    );
-    const inputAvatar = <HTMLInputElement>(
-      page.querySelector('input[name="avatar"]')
-    );
-
-    inputAvatar.addEventListener('change', () => {
-      console.log('jopa');
-      const formData = new FormData(formAvatar);
-      userController.updateUserAvatar(formData);
-    });
+    console.log('constructor', this.props);
   }
 
-  private _submitProfile(e: Event) {
-    const form = <HTMLFormElement>e.currentTarget;
-    const formData = new FormData(form);
-    const data = [...formData].reduce(
-      (acc, [key, val]) => ({ ...acc, [key]: val }),
-      {}
-    );
-
-    console.log('submit ', data);
-
-    userController.updateUserProfile(<UserProfileData>data);
+  protected componentDidMount(): void {
+    console.log('componentDidMount', this.props);
   }
 
   public render() {
@@ -93,39 +62,38 @@ class UserSettingsPageBase extends Block {
         {{#Header}}
           {{#Container className="header__content row-between"}}
             <div class="row-between">
-              {{#Link to='back'}}
+              {{#Link to=../chatPage}}
                 <div class="visually-hidden">Вернуться назад</div>
                 {{{Icon icon="back"}}}
               {{/Link}}
               {{{Logo}}}
             </div>
           {{/Container}}
-        {{/Header}}
+          {{/Header}}
 
-        {{#Main}}
+          {{#Main isLoading=isLoading}}
           {{#Title}}Настройки профиля{{/Title}}
 
-          {{#Form name="avatar"}}
+          {{#Form name="settings" onSubmit=../submitUserSettings}}
             <div class="form__group row-between">
-              {{{ControlFile avatar=../userAvatar name="avatar" accept="image/*"}}}
+              {{{ControlFile avatar=../avatar name="avatar" accept="image/*"}}}
 
               {{#Link to=../changePasswordPage}}
                 Изменить пароль
                 {{{Icon className="icon_reflected" icon="back"}}}
               {{/Link}}
             </div>
-          {{/Form}}
 
-          {{#Form name="profile"}}
-            {{{ Control className="form__control" name="first_name" label="Имя" value=../data.first_name }}}
-            {{{ Control className="form__control" name="second_name" label="Фамилия" value=../data.second_name }}}
-            {{{ Control className="form__control" name="display_name" label="Отображаемое имя" value=../displayName}}}
-            {{{ Control className="form__control" name="login" label="Логин" value=../data.login }}}
-            {{{ Control className="form__control" name="email" label="Почта" value=../data.email }}}
-            {{{ Control className="form__control" name="phone" label="Телефон" value=../data.phone }}}
+            {{{Control className="form__control" name="first_name" label="Имя" value=../first_name validation=../firstNameValidation}}}
+            {{{Control className="form__control" name="second_name" label="Фамилия" value=../second_name validation=../secondNameValidation}}}
+            {{{Control className="form__control" name="display_name" label="Отображаемое имя" value=../display_name}}}
+            {{{Control className="form__control" name="login" label="Логин" value=../login validation=../loginValidation}}}
+            {{{Control className="form__control" name="email" label="Почта" value=../email validation=../emailValidation}}}
+            {{{Control className="form__control" name="phone" label="Телефон" value=../phone validation=../phoneValidation}}}
 
             {{#Button btnName="primary" className="form__submit button_full" type="submit"}}Сохранить{{/Button}}
           {{/Form}}
+          {{{Icon className="main__loader" icon="loader"}}}
         {{/Main}}
       </div>
     `;
@@ -133,7 +101,10 @@ class UserSettingsPageBase extends Block {
 }
 
 const withUser = withStore((state) => {
-  return { ...state.user };
+  return {
+    ...state.user.data,
+    isLoading: state.user.isLoading,
+  };
 });
 const UserSettingsPage = withUser(UserSettingsPageBase);
 export default UserSettingsPage;

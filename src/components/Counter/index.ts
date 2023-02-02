@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import { Block } from '../../utils/Block';
 import './counter.scss';
 
 type CounterProps = {
@@ -11,11 +11,16 @@ export default class Counter extends Block {
 
   constructor(props: CounterProps) {
     super(props);
+
+    this.setProps({
+      ...props,
+      className: props.className ? `counter ${props.className}` : 'counter',
+    });
   }
 
   render() {
     return `
-      <div class='counter {{className}}'>
+      <div class="{{className}}">
         <span class="counter__text">{{text}}</span>
       </div>
     `;

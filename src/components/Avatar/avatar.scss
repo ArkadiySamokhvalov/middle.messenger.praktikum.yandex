@@ -7,28 +7,29 @@
   width: 40px;
   height: 40px;
 
-  // .avatar_empty
-  &_empty {
-    background-color: burlywood;
-    background-image: linear-gradient(burlywood, $mainHover);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  // .avatar_full
-  &_full {
-    width: auto;
-    height: auto;
-  }
-
   // .avatar__picture
   &__picture {
     width: 100%;
     height: 100%;
+  }
+
+  // .avatar__img
+  &__img {
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     mask-composite: subtract;
+  }
+
+  // .avatar__icon
+  &__icon {
+    width: 60px;
+    height: 60px;
+
+    // .avatar__icon_hide
+    &_hide {
+      display: none;;
+    }
   }
 
   // .avatar__marker
@@ -54,4 +55,36 @@
       content: "";
     }
   }
+
+  // .avatar_centred
+  &_centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .avatar__picture {
+      display: none;
+
+      // .avatar__picture_show
+      &_show {
+        display: block;
+      }
+    }
+  }
+
+    // .avatar_empty
+    &_empty {
+      background-color: burlywood;
+      background-image: linear-gradient(burlywood, $mainHover);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    // .avatar_full
+    &_full {
+      width: 100%;
+      height: 100%;
+    }
 }

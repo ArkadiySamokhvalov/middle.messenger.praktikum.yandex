@@ -1,13 +1,9 @@
-import Block from '../../utils/Block';
 import image from 'url:../../../static/img/404.png';
+import { Block } from '../../utils/Block';
 
 export default class Error404Page extends Block {
   constructor() {
-    super();
-
-    this.setProps({
-      image,
-    });
+    super({ image });
   }
 
   render() {

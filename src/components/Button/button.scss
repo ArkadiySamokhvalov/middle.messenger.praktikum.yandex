@@ -38,16 +38,34 @@
     background-color: $accent;
     border: none;
     border-radius: $border-radius;
-    box-shadow: inset 0 -3px 0 0 color.adjust($color: $accent, $lightness: -20%);
+    box-shadow: inset 0 -3px 0 0 color.adjust($color: $accent, $lightness: -25%);
     transition: $transition-duration;
 
     &:hover {
-      background-color: color.adjust($color: $accent, $lightness: -10%);
+      background-color: color.adjust($color: $accent, $lightness: -5%);
     }
 
     &:focus {
       box-shadow: none;
     }
+  }
+
+  &__modal {
+    border: none;
+    transition: $transition-duration;
+    padding: 8px;
+    background-color: $mainHover;
+    color: $text;
+    border-radius: $border-radius;
+
+
+    &:hover {
+
+    }
+  }
+
+  &_danger {
+    color: $red;
   }
 
   &_small {

@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import { Block } from '../../utils/Block';
 import './dropdown.scss';
 
 type Item = {
@@ -10,7 +10,7 @@ type Item = {
 type DropdownProps = {
   text: string;
   menuItems: Item[];
-  icon?: string;
+  icon: string;
   className?: string;
 };
 
@@ -18,29 +18,35 @@ export default class Dropdown extends Block {
   public static componentName = 'Dropdown';
 
   constructor(props: DropdownProps) {
-    super(props);
+    super({
+      ...props,
+      className: props.className ? `dropdown ${props.className}` : 'dropdown',
+    });
 
-    console.log(props);
-  }
-
-  protected componentDidMount(): void {
-    const component = this.element;
-    const button = component?.querySelector('.dropdown__button');
-    const menu = component?.querySelector('.dropdown__menu');
-
-    button?.addEventListener('click', () => {
-      menu?.classList.toggle('dropdown__menu_active');
+    this.setProps({
+      openMenu: () => {
+        const component = <HTMLElement>this.getContent();
+        const menu = <HTMLElement>component.querySelector('.dropdown__menu');
+        menu.classList.toggle('dropdown__menu_active');
+      },
     });
 
     document.addEventListener('click', (e) => {
+      const component = <HTMLElement>this.getContent();
+      const menu = <HTMLElement>component.querySelector('.dropdown__menu');
+      const button = <HTMLElement>component.querySelector('.dropdown__button');
+
       if (!e.composedPath().includes(button)) {
         if (!e.composedPath().includes(menu)) {
-          menu?.classList.remove('dropdown__menu_active');
+          menu.classList.remove('dropdown__menu_active');
         }
       }
     });
 
-    document.addEventListener('keydown', function (e) {
+    document.addEventListener('keydown', (e) => {
+      const component = <HTMLElement>this.getContent();
+      const menu = <HTMLElement>component.querySelector('.dropdown__menu');
+
       if (e.code === 'Escape') {
         menu?.classList.remove('dropdown__menu_active');
       }
@@ -49,12 +55,8 @@ export default class Dropdown extends Block {
 
   render() {
     return `
-      <div class='dropdown {{className}}'>
-        {{#if icon}}
-          {{{Button className="dropdown__button" btnName="icon" text=text icon=icon}}}
-        {{else}}
-          {{#Button}}{{text}}{{/Button}}
-        {{/if}}
+      <div class="{{className}}">
+        {{{Button onClick=openMenu className="dropdown__button" btnName="icon" text=text icon=icon}}}
 
         {{{Menu className="dropdown__menu" menuItem=menuItems}}}
       </div>

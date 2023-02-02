@@ -1,40 +1,64 @@
-import Block from '../../utils/Block';
 import './contact.scss';
+import { T_ChatData } from '../../typings/types';
+import ChatsController from '../../controllers/ChatsController';
+import { Block } from '../../utils/Block';
 
 type ContactProps = {
-  avatar: string;
-  online?: string;
-  name: string;
-  time: string;
-  lastMessage: string;
-  counter?: string;
-  className?: string;
+  data: T_ChatData;
+  userLogin: string;
+  selectedChatId: number;
 };
 
 export default class Contact extends Block {
   public static componentName = 'Contact';
 
   constructor(props: ContactProps) {
-    super(props);
+    super({
+      ...props,
+      className:
+        props.selectedChatId === props.data.id
+          ? 'contact contact_active'
+          : 'contact',
+      events: {
+        click: () => ChatsController.selectChat(props.data.id),
+      },
+    });
+
+    if (props.userLogin && props.data.last_message) {
+      this.setProps({
+        ownMessage: props.userLogin === props.data.last_message.user.login,
+      });
+    }
+
+    console.log('contact', this.props);
   }
 
   render() {
     return `
-      <div class='contact row-between {{className}}'>
-        {{{ Avatar className='contact__avatar' img=avatar marker=online }}}
+      <div class="{{className}}">
+        {{{Avatar className="contact__avatar" img=data.avatar title=data.title}}}
 
-        <div class='contact__content row-column'>
-          <div class='row-between'>
-            {{{Name className='contact__name' text=name}}}
+        <div class="contact__content">
+          <div class="contact__row">
+            {{{Name className="contact__name" text=data.title}}}
 
-            {{{Time className='contact__time' text=time}}}
+            {{{Time className="contact__time" text=data.lastMessage.time}}}
           </div>
 
-          <div class='row-between'>
-            <p class='contact__last-message'>{{lastMessage}}</p>
+          <div class="contact__row">
+            <p class="contact__last-message">
+              {{#if data.last_message.content}}
+                {{#if ownMessage}}
+                  <span class="contact__own">Вы:</span>
+                {{/if}}
+                {{data.last_message.content}}
+              {{else}}
+                Нет сообщений
+              {{/if}}
+            </p>
 
-            {{#if counter}}
-              {{{Counter className='contact__counter' text=counter}}}
+            {{#if data.unread_count}}
+              {{{Counter className="contact__counter" text=data.unread_count}}}
             {{/if}}
           </div>
         </div>

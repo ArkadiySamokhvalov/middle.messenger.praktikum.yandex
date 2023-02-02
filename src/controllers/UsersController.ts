@@ -1,50 +1,54 @@
-import UsersAPI from '../api/UsersAPI';
-import ResourcesAPI from '../api/ResourcesAPI';
+import { UsersAPI } from '../api/UsersAPI';
 import Store from '../utils/Store';
-import { UserProfileData, UserChangePasswordData } from '../typings/types';
+import {
+  T_UserData,
+  T_UserProfileData,
+  T_UserChangePasswordData,
+} from '../typings/types';
 
-const store = new Store();
-const resources = new ResourcesAPI();
-
-export default class UsersController {
+class UsersController {
   constructor(private _api: UsersAPI) {}
 
   private async _request(req: () => void) {
-    store.set('user.isLoading', true);
+    Store.set('user.isLoading', true);
 
     try {
       await req();
     } catch (e: any) {
-      store.set('user.error', e.reason);
+      Store.set('user.error', e.reason);
     } finally {
-      store.set('user.isLoading', false);
+      Store.set('user.isLoading', false);
     }
   }
 
-  public getUserAvatar(path: string) {
-    this._request(async () => {
-      const response = await resources.getResource(path);
-      console.log(response);
-    });
-  }
-
-  public updateUserAvatar(data: { avatar: File }) {
+  public async updateUserAvatar(data: FormData) {
     this._request(async () => {
       const user = await this._api.updateUserAvatar(data);
-      store.set('user.data', user);
+      Store.set('user.data', user);
     });
   }
 
-  public updateUserPassword(data: UserChangePasswordData) {
+  public async updateUserPassword(data: T_UserChangePasswordData) {
     this._request(async () => {
       await this._api.updateUserPassword(data);
     });
   }
 
-  public updateUserProfile(data: UserProfileData) {
+  public async updateUserProfile(data: T_UserProfileData) {
     this._request(async () => {
-      const req = await this._api.updateUserProfile(data);
-      console.log(req);
+      const user = await this._api.updateUserProfile(data);
+      Store.set('user.data', user);
     });
   }
+
+  public async getUserByLogin(login: string): Promise<T_UserData> {
+    const user = <T_UserData[]>await this._api.getUserByLogin(login);
+    return {
+      ...user[0],
+      display_name:
+        user[0].display_name || `${user[0].first_name} ${user[0].second_name}`,
+    };
+  }
 }
+
+export default new UsersController(new UsersAPI());

@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import { Block } from '../../utils/Block';
 import './time.scss';
 
 type TimeProps = {
@@ -10,12 +10,15 @@ export default class Time extends Block {
   public static componentName = 'Time';
 
   constructor(props: TimeProps) {
-    super(props);
+    super({
+      ...props,
+      className: props.className ? `time ${props.className}` : 'time',
+    });
   }
 
   render() {
     return `
-      <div class='time {{className}}'>{{text}}</div>
+      <div class="{{className}}">{{text}}</div>
     `;
   }
 }

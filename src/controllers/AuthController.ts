@@ -1,44 +1,43 @@
-import AuthAPI from '../api/AuthAPI';
-import { SigninData, SignupData } from '../typings/types';
+import { AuthAPI } from '../api/AuthAPI';
+import { T_SigninData, T_SignupData } from '../typings/types';
 import Store from '../utils/Store';
 import Router from '../utils/Router';
-import Routes from '../routes';
-
-const store = new Store();
+import { Routes } from '../routes';
+import MessagesController from './MessagesController';
 
 const enum Errors {
   'Login or password is incorrect' = 'Неверный логин или пароль',
+  'Cookie is not valid' = 'Файл cookie недействителен',
 }
 
-export default class AuthController {
-  constructor(private _api: AuthAPI, private _router: Router) {}
+class AuthController {
+  constructor(private _api: AuthAPI, private _router: typeof Router) {}
 
   private async _request(req: () => void) {
-    store.set('user.isLoading', true);
+    Store.set('user.isLoading', true);
+    Store.set('user.error', null);
 
     try {
       await req();
-    } catch (e: any) {
-      store.set('user.error', Errors[e.reason]);
+    } catch (e: unknown) {
+      Store.set('user.error', Errors[e.reason]);
     } finally {
-      store.set('user.isLoading', false);
+      Store.set('user.isLoading', false);
     }
   }
 
-  public async signup(signupData: SignupData) {
+  public async signup(signupData: T_SignupData) {
     this._request(async () => {
       await this._api.signup(signupData);
-      await this.fetchUser();
-      store.set('user.password', signupData.password);
+      this.fetchUser();
       this._router.go(Routes.Chat);
     });
   }
 
-  public async signin(signinData: SigninData) {
+  public async signin(signinData: T_SigninData) {
     this._request(async () => {
       await this._api.signin(signinData);
-      await this.fetchUser();
-      store.set('user.password', signinData.password);
+      this.fetchUser();
       this._router.go(Routes.Chat);
     });
   }
@@ -46,12 +45,20 @@ export default class AuthController {
   public async logout() {
     this._request(async () => {
       await this._api.logout();
+      MessagesController.closeAll();
+      Store.clearState();
       this._router.go(Routes.Index);
     });
   }
 
   public async fetchUser() {
     const user = await this._api.getUserData();
-    store.set('user.data', user);
+    Store.set('user.data', {
+      ...user,
+      display_name:
+        user.display_name || `${user.first_name} ${user.second_name}`,
+    });
   }
 }
+
+export default new AuthController(new AuthAPI(), Router);
