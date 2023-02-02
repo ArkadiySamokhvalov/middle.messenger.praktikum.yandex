@@ -4,6 +4,7 @@ import Store from '../utils/Store';
 import Router from '../utils/Router';
 import { Routes } from '../routes';
 import MessagesController from './MessagesController';
+import ChatsController from './ChatsController';
 
 const enum Errors {
   'Login or password is incorrect' = 'Неверный логин или пароль',
@@ -30,6 +31,7 @@ class AuthController {
     this._request(async () => {
       await this._api.signup(signupData);
       this.fetchUser();
+      ChatsController.fetchChats();
       this._router.go(Routes.Chat);
     });
   }
@@ -38,6 +40,7 @@ class AuthController {
     this._request(async () => {
       await this._api.signin(signinData);
       this.fetchUser();
+      ChatsController.fetchChats();
       this._router.go(Routes.Chat);
     });
   }

@@ -9,9 +9,12 @@ import { formDataToObj } from '../../utils/helpers/formDataToObj';
 import { showModal, submitForm } from '../../utils/helpers/modalHelpers';
 import { T_ChatData } from '../../typings/types';
 import UsersController from '../../controllers/UsersController';
+import Store from '../../utils/Store';
 
 class ChatPageBase extends Block {
   constructor() {
+    const state = Store.getState();
+
     super({
       menuItems: [
         {
@@ -79,6 +82,8 @@ class ChatPageBase extends Block {
           ChatsController.addUserToChat(this.props.selectedChat.id, user.id);
         });
       },
+      user: state.user?.data,
+      chats: state.chats?.data,
     });
 
     ChatsController.fetchChats();
