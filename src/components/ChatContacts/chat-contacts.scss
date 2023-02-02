@@ -1,9 +1,8 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles/helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .chat-contacts {
-
   // .chat-contacts__button
   &__button {
     display: flex;
@@ -19,49 +18,49 @@
 
   // .chat-contacts__text
   &__text {
-    flex-grow: 1;
-    height: 100%;
     display: flex;
+    flex-grow: 1;
     align-items: center;
     justify-content: center;
-    font-size: torem(18);
+    height: 100%;
     color: $secondary;
+    font-size: torem(18);
   }
 }
-  //   .contact {
-  //     padding-right: torem(8);
-  //     padding-left: torem(8);
-  //   }
+//   .contact {
+//     padding-right: torem(8);
+//     padding-left: torem(8);
+//   }
 
-  //   @include media("sm") {
-  //     flex-grow: 1;
-  //     overflow-y: auto;
-  //   }
+//   @include media("sm") {
+//     flex-grow: 1;
+//     overflow-y: auto;
+//   }
 
-  //   &_empty {
-  //     display: flex;
-  //     flex-direction: column;
-  //     height: 100%;
-  //     padding-top: torem(20);
+//   &_empty {
+//     display: flex;
+//     flex-direction: column;
+//     height: 100%;
+//     padding-top: torem(20);
 
-  //     .chat__contacts-button {
-  //       display: flex;
-  //       align-items: center;
-  //       justify-content: center;
+//     .chat__contacts-button {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
 
-  //       .icon {
-  //         margin-left: torem(8);
-  //       }
-  //     }
+//       .icon {
+//         margin-left: torem(8);
+//       }
+//     }
 
-  //     .chat__contacts-text {
-  //         flex-grow: 1;
-  //         height: 100%;
-  //         align-self: center;
-  //         display: flex;
-  //         align-items: center;
-  //         font-size: torem(18);
-  //         color: $secondary;
-  //     }
-  //   }
-  // }
+//     .chat__contacts-text {
+//         flex-grow: 1;
+//         height: 100%;
+//         align-self: center;
+//         display: flex;
+//         align-items: center;
+//         font-size: torem(18);
+//         color: $secondary;
+//     }
+//   }
+// }

@@ -1,38 +1,37 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
-
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .modal {
-  display: none;
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
   top: 0;
+  left: 0;
+  z-index: 1; /* Sit on top */
+  display: none;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
+  padding-top: 100px; /* Location of the box */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0 0 0); /* Fallback color */
+  background-color: rgb(0 0 0 / 40%); /* Black w/ opacity */
 
   // .modal__content
   &__content {
     position: absolute;
-    background-color: $mainBg;
-    padding: 0.75rem 0.75rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: $transition-duration;
-    box-shadow: 0 0 2px 0 $secondary;
-    z-index: 2;
-    margin: 0 auto;
-    left: 0;
     right: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
     min-width: 320px;
     max-width: 400px;
-    width: 100%;
+    margin: 0 auto;
+    padding: 0.75rem;
+    background-color: $mainBg;
     border-radius: $border-radius;
+    box-shadow: 0 0 2px 0 $secondary;
+    visibility: hidden;
+    opacity: 0;
+    transition: $transition-duration;
   }
 
   // .modal__header
@@ -47,14 +46,14 @@
 
   // .modal__group
   &__group {
-    border-bottom: 1px solid $secondary;
     padding-bottom: 1rem;
+    border-bottom: 1px solid $secondary;
   }
 
   // .modal__avatar
   &__avatar {
     width: 60px;
-    height: 60px;;
+    height: 60px;
     margin-bottom: 1rem;
   }
 
@@ -83,10 +82,10 @@
 
   // .modal__row-button
   &__row-button {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
   }
 
   // .modal__separate-block
@@ -101,20 +100,20 @@
 
   // .modal_left
   &_left {
-    padding-top: 0;
     width: 0;
+    padding-top: 0;
 
     &.modal_active {
       width: 100%;
     }
 
     .modal__content {
-      height: 100%;
-      min-width: 276px;
-      width: 20%;
-      max-width: 320px;
-      left: unset;
       right: unset;
+      left: unset;
+      width: 20%;
+      min-width: 276px;
+      max-width: 320px;
+      height: 100%;
     }
   }
 
@@ -123,8 +122,8 @@
     display: block;
 
     .modal__content {
-      opacity: 100%;
       visibility: visible;
+      opacity: 1;
     }
   }
 

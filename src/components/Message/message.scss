@@ -1,6 +1,6 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .message {
   display: flex;
@@ -15,22 +15,22 @@
   // .message__content
   &__content {
     position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
+    padding: torem(4) torem(8);
     background-color: $mainBg;
     border-radius: $border-radius $border-radius $border-radius 0;
-    padding: torem(4) torem(8);
-    z-index: 1;
 
     // .message__content::before
     &::before {
-      content: '';
       position: absolute;
       bottom: 0;
       left: -16px;
+      z-index: -1;
       border: 16px solid transparent;
       border-bottom-color: $mainBg;
-      z-index: -1;
+      content: "";
     }
   }
 
@@ -47,15 +47,15 @@
 
   // .message__text
   &__text {
+    flex-grow: 1;
     font-size: torem(16);
     line-height: torem(22);
-    flex-grow: 1;
   }
 
   // .message__time
   &__time {
-    font-size: torem(14);
     margin-left: torem(8);
+    font-size: torem(14);
   }
 
   // .message_own
@@ -69,7 +69,7 @@
     }
   }
 
-  &+.message {
+  & + .message {
     margin-top: 1rem;
   }
 }

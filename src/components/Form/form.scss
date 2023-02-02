@@ -1,6 +1,6 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .form {
   width: 100%;
@@ -53,17 +53,17 @@
 
   // .form__error
   &__error {
-    display: none;
-    background: #22202e;
-    border: 3px solid #a71212;
-    border-radius: 4px;
-    margin: 0;
     position: absolute;
     top: 60px;
     right: 0.5rem;
+    display: none;
+    margin: 0;
     padding: 0.5rem;
     color: white;
     font-size: torem(18);
+    background: #22202e;
+    border: 3px solid #a71212;
+    border-radius: 4px;
 
     &_show {
       display: block;

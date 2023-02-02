@@ -2,16 +2,17 @@
   box-sizing: border-box;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
-
 
 body {
   color: $text;
   font-weight: 400;
-  font-family: Overpass, Impact, Arial, sans-serif;
   font-size: torem(20);
+  font-family: Overpass, Impact, Arial, sans-serif;
   background-image: url("#{$path-to-static}/img/default-chat-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;

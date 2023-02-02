@@ -1,6 +1,6 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles/helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .chat {
   flex-grow: 1;
@@ -35,8 +35,8 @@
     @include media("sm") {
       display: flex;
       flex-direction: column;
-      min-width: 276px;
       width: 20%;
+      min-width: 276px;
       max-width: 320px;
       background-color: $mainBg;
       border-top-left-radius: $border-radius;
@@ -57,9 +57,9 @@
 
     .control {
       flex-grow: 1;
-      font-size: torem(16);
-      margin-right: torem(8);
       height: 40px;
+      margin-right: torem(8);
+      font-size: torem(16);
     }
   }
 
@@ -99,6 +99,4 @@
       }
     }
   }
-
-
 }

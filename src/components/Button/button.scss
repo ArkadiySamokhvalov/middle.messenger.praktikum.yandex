@@ -1,8 +1,8 @@
 @use "sass:color";
 
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .button {
   &__icon {
@@ -19,10 +19,10 @@
   }
 
   &__secondary {
-    background-color: transparent;
-    border: none;
     padding: 8px;
     color: $text;
+    background-color: transparent;
+    border: none;
     transition: $transition-duration;
 
     &:hover {
@@ -51,17 +51,12 @@
   }
 
   &__modal {
-    border: none;
-    transition: $transition-duration;
     padding: 8px;
-    background-color: $mainHover;
     color: $text;
+    background-color: $mainHover;
+    border: none;
     border-radius: $border-radius;
-
-
-    &:hover {
-
-    }
+    transition: $transition-duration;
   }
 
   &_danger {
@@ -75,5 +70,4 @@
   &_full {
     width: 100%;
   }
-
 }

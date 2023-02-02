@@ -1,10 +1,10 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .menu {
-  margin-left: -0.5rem;
   margin-right: -0.5rem;
+  margin-left: -0.5rem;
 
   // .menu__item
   &__item {
@@ -17,15 +17,15 @@
   &__button {
     display: flex;
     align-items: center;
-    text-align: left;
     width: 100%;
+    text-align: left;
   }
 
   // .menu__text
   &__text {
     display: inline-block;
+    height: torem(14);
     margin-left: torem(8);
     font-size: torem(16);
-    height: torem(14);
   }
 }

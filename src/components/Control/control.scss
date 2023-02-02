@@ -1,18 +1,19 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .control {
   // .control__label
   &__label {
     display: block;
     margin-bottom: torem(5);
-    cursor: pointer;
     font-size: torem(18);
+    cursor: pointer;
   }
 
   // .control__input
   &__input {
+    position: relative;
     width: 100%;
     padding: torem(10);
     color: $textAccent;
@@ -20,7 +21,6 @@
     border: none;
     border-radius: $border-radius;
     transition: $transition-duration;
-    position: relative;
 
     &:hover,
     &:focus-visible {
@@ -51,7 +51,6 @@
       box-shadow: inset 0 -3px $green !important;
     }
   }
-
 
   // .control__feedback
   &__feedback {

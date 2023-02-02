@@ -1,6 +1,6 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .avatar {
   position: relative;
@@ -28,7 +28,7 @@
 
     // .avatar__icon_hide
     &_hide {
-      display: none;;
+      display: none;
     }
   }
 
@@ -72,19 +72,19 @@
     }
   }
 
-    // .avatar_empty
-    &_empty {
-      background-color: burlywood;
-      background-image: linear-gradient(burlywood, $mainHover);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  // .avatar_empty
+  &_empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: burlywood;
+    background-image: linear-gradient(burlywood, $mainHover);
+    border-radius: 50%;
+  }
 
-    // .avatar_full
-    &_full {
-      width: 100%;
-      height: 100%;
-    }
+  // .avatar_full
+  &_full {
+    width: 100%;
+    height: 100%;
+  }
 }

@@ -1,6 +1,6 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .messages {
   position: absolute;
@@ -12,19 +12,19 @@
   padding: torem(10) torem(8);
   overflow-y: auto;
 
-    // .messages__data
-    &__data {
-      text-align: center;
-    }
-
-    // .messages__data-text
-    &__data-text {
-      display: inline-block;
-      margin-bottom: torem(5);
-      padding: torem(3) torem(4);
-      color: $textAccent;
-      font-size: torem(14);
-      background-color: $accent;
-      border-radius: $border-radius;
-    }
+  // .messages__data
+  &__data {
+    text-align: center;
   }
+
+  // .messages__data-text
+  &__data-text {
+    display: inline-block;
+    margin-bottom: torem(5);
+    padding: torem(3) torem(4);
+    color: $textAccent;
+    font-size: torem(14);
+    background-color: $accent;
+    border-radius: $border-radius;
+  }
+}
