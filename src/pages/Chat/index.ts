@@ -82,7 +82,6 @@ class ChatPageBase extends Block {
     });
 
     ChatsController.fetchChats();
-    console.log(this.props);
   }
 
   public render() {

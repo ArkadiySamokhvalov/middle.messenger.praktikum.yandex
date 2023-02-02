@@ -20,8 +20,6 @@ export default class ChatContacts extends Block {
         ? `chat-contacts custom-scrollbar ${props.className}`
         : 'chat-contacts custom-scrollbar',
     });
-
-    console.log('chat contacts', this.props);
   }
 
   render() {

@@ -18,8 +18,6 @@ export default class Message extends Block {
         `${props.message.user.first_name} ${props.message.user.second_name}`,
       avatar: props.message.user.avatar,
     });
-
-    // console.log('message', this.props);
   }
 
   render() {

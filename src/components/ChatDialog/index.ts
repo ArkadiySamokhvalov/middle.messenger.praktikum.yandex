@@ -60,8 +60,6 @@ export default class ChatDialog extends Block {
         });
       })();
     }
-
-    console.log('dialog', this.props);
   }
 
   render() {

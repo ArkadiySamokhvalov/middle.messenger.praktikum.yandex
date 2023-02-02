@@ -34,7 +34,7 @@ export default class Form extends Block {
               this.errors.delete(input.name);
             }
           });
-          console.log(this.errors);
+
           if (validateForm(form, this.errors)) {
             props.onSubmit(e);
           }

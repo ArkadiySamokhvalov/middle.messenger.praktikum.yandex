@@ -29,8 +29,6 @@ export default class Contact extends Block {
         ownMessage: props.userLogin === props.data.last_message.user.login,
       });
     }
-
-    console.log('contact', this.props);
   }
 
   render() {
