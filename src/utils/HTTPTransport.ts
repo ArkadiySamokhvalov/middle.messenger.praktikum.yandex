@@ -6,11 +6,6 @@ enum METHOD {
   DELETE = 'DELETE',
 }
 
-type HTTPMethod = (
-  path: string,
-  options?: OptionsWithoutMethod
-) => Promise<Response>;
-
 type Options = {
   method: METHOD;
   data?: any;
@@ -21,7 +16,7 @@ type Options = {
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-export default class HTTPTransport {
+export class HTTPTransport {
   static API_URL = 'https://ya-praktikum.tech/api/v2';
   protected endpoint: string;
 
@@ -29,32 +24,38 @@ export default class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get: HTTPMethod = (path = '/', options = {}) => {
-    const { data = undefined } = options;
+  public get<Response>(
+    path = '/',
+    options: OptionsWithoutMethod = {}
+  ): Promise<Response> {
+    const { data = null } = options;
     const url = this.endpoint + path;
     const newURL = data ? this._queryStringify(url, data) : url;
-    return this._request(newURL, { ...options, method: METHOD.GET });
-  };
+    return this._request<Response>(newURL, { ...options, method: METHOD.GET });
+  }
 
-  public post: HTTPMethod = (path = '/', options = {}) => {
+  public post<Response = void>(
+    path = '/',
+    options: OptionsWithoutMethod = {}
+  ): Promise<Response> {
     const url = this.endpoint + path;
-    return this._request(url, { ...options, method: METHOD.POST });
-  };
+    return this._request<Response>(url, { ...options, method: METHOD.POST });
+  }
 
-  public put: HTTPMethod = (path = '/', options = {}) => {
+  public put<Response = void>(path = '/', options = {}): Promise<Response> {
     const url = this.endpoint + path;
-    return this._request(url, { ...options, method: METHOD.PUT });
-  };
+    return this._request<Response>(url, { ...options, method: METHOD.PUT });
+  }
 
-  public putch: HTTPMethod = (path = '/', options = {}) => {
+  public putch<Response = void>(path = '/', options = {}): Promise<Response> {
     const url = this.endpoint + path;
-    return this._request(url, { ...options, method: METHOD.PATCH });
-  };
+    return this._request<Response>(url, { ...options, method: METHOD.PATCH });
+  }
 
-  public delete: HTTPMethod = (path = '/', options = {}) => {
+  public delete<Response>(path = '/', options = {}): Promise<Response> {
     const url = this.endpoint + path;
-    return this._request(url, { ...options, method: METHOD.DELETE });
-  };
+    return this._request<Response>(url, { ...options, method: METHOD.DELETE });
+  }
 
   private _queryStringify(url: string, data: Record<string, unknown>): URL {
     if (typeof data !== 'object') {
@@ -99,14 +100,14 @@ export default class HTTPTransport {
         xhr.setRequestHeader('Content-Type', 'application/json');
       }
 
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
+
       if (headers) {
         Object.entries(headers).forEach(([key, val]) => {
           xhr.setRequestHeader(key, `${val}`);
         });
       }
-
-      xhr.withCredentials = true;
-      xhr.responseType = 'json';
 
       if (method === METHOD.GET || !data) {
         xhr.send();

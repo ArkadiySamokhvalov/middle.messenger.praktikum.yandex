@@ -1,12 +1,12 @@
-import BaseAPI from './BaseAPi';
-import { SigninData, SignupData } from '../typings/types';
+import { BaseAPI } from './BaseAPi';
+import { T_SigninData, T_SignupData, T_UserData } from '../typings/types';
 
-export default class AuthAPI extends BaseAPI {
+export class AuthAPI extends BaseAPI {
   constructor() {
     super('/auth');
   }
 
-  public signin(data: SigninData) {
+  public signin(data: T_SigninData) {
     return this.http.post('/signin', { data });
   }
 
@@ -14,11 +14,11 @@ export default class AuthAPI extends BaseAPI {
     return this.http.post('/logout');
   }
 
-  public signup(data: SignupData) {
+  public signup(data: T_SignupData) {
     return this.http.post('/signup', { data });
   }
 
-  public getUserData() {
+  public getUserData(): Promise<T_UserData> {
     return this.http.get('/user');
   }
 }

@@ -1,7 +1,7 @@
-import isObject from './isObject';
+import { isObject } from './isObject';
 import { Indexed } from '../../typings/types';
 
-export default function merge(lhs: Indexed, rhs: Indexed): Indexed {
+export function merge(lhs: Indexed, rhs: Indexed): Indexed {
   for (const p in rhs) {
     if (!Object.hasOwnProperty.call(rhs, p)) {
       continue;

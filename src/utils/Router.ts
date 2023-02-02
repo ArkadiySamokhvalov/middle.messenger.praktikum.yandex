@@ -1,7 +1,7 @@
-import Block from './Block';
-import Route from './Route';
+import { Block } from './Block';
+import { Route } from './Route';
 
-export default class Router {
+class Router {
   private static __instance: Router;
   private _currentRoute: Route | null = null;
   private _history = window.history;
@@ -63,3 +63,5 @@ export default class Router {
     this._history.forward();
   }
 }
+
+export default new Router();

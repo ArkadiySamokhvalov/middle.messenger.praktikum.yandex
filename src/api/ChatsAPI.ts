@@ -1,11 +1,12 @@
-import BaseAPI from './BaseAPi';
+import { T_ChatData, T_UserDataWithRole } from '../typings/types';
+import { BaseAPI } from './BaseAPi';
 
-export default class ChatsAPI extends BaseAPI {
+export class ChatsAPI extends BaseAPI {
   constructor() {
     super('/chats');
   }
 
-  public getChats() {
+  public getChats(): Promise<T_ChatData[]> {
     return this.http.get('/');
   }
 
@@ -13,7 +14,7 @@ export default class ChatsAPI extends BaseAPI {
     return this.http.post('', { data: { title } });
   }
 
-  public deleteChat(id: number) {
+  public deleteChat(id: number): Promise<unknown> {
     return this.http.delete('', { data: { chatId: id } });
   }
 
@@ -25,7 +26,7 @@ export default class ChatsAPI extends BaseAPI {
     return this.http.get('/archive');
   }
 
-  public getChatUsers(id: number) {
+  public getChatUsers(id: number): Promise<T_UserDataWithRole[]> {
     return this.http.get(`/${id}/users`);
   }
 
@@ -46,16 +47,16 @@ export default class ChatsAPI extends BaseAPI {
   }
 
   async getToken(id: number): Promise<string> {
-    const response = await this.http.post(`/token/${id}`);
+    const response = await this.http.post<{ token: string }>(`/token/${id}`);
 
     return response.token;
   }
 
-  public uploadChatAvatar(id: number, avatar: File) {
-    return this.http.put('/avatar', { data: { chatId: id, avatar } });
+  public uploadChatAvatar(data: FormData) {
+    return this.http.put('/avatar', { data });
   }
 
-  public addUsersToChat(id: number, users: number[]) {
+  public addUsersToChat(id: number, users: number[]): Promise<unknown> {
     return this.http.put('/users', { data: { chatId: id, users } });
   }
 

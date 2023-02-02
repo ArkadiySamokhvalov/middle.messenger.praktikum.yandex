@@ -1,3 +1,3 @@
-export default function isArray(value: unknown): boolean {
+export function isArray(value: unknown): boolean {
   return Array.isArray(value);
 }

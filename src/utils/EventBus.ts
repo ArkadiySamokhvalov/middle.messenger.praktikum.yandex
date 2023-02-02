@@ -1,13 +1,15 @@
 type Handler<A extends any[] = unknown[]> = (...args: A) => void;
 type MapInterface<P> = P[keyof P];
 
-export default class EventBus<
+export class EventBus<
   E extends Record<string, string> = Record<string, string>,
   Args extends Record<MapInterface<E>, any[]> = Record<string, any[]>
 > {
   private readonly _listeners: {
     [K in MapInterface<E>]?: Handler<Args[K]>[];
   } = {};
+
+  constructor() {}
 
   public on<Event extends MapInterface<E>>(
     event: Event,

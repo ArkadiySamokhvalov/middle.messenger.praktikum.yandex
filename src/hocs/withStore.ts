@@ -1,32 +1,28 @@
-import Block from '../utils/Block';
-import Store, { StoreEvents } from '../utils/Store';
-import isEqual from '../utils/helpers/isEqual';
+import { T_PlainObject, T_State } from '../typings/types';
+import { Block } from '../utils/Block';
+import store, { StoreEvents } from '../utils/Store';
+import { isEqual } from '../utils/helpers/isEqual';
 
-const store = new Store();
-
-export default function withStore(mapStateToProps: (state: any) => any) {
-  return function wrap(Component: typeof Block<any>) {
-    type Props = typeof Component extends typeof Block<
-      infer P extends Record<string, any>
-    >
-      ? P
-      : any;
-
-    let currentState: Props = null;
+export function withStore<SP extends T_PlainObject>(
+  mapStateToProps: (state: T_State) => SP
+) {
+  return function wrap<P extends T_PlainObject>(
+    Component: typeof Block<SP & P>
+  ) {
+    let currentState: SP | null = null;
 
     return class WithStore extends Component {
-      constructor() {
+      constructor(props: P) {
         const state = store.getState();
-        currentState = mapStateToProps(state);
+        currentState = <SP>mapStateToProps(state);
 
-        super();
-        this.setProps({ ...currentState });
+        super({ ...props, ...currentState });
 
         store.on(StoreEvents.Updated, () => {
           const state = store.getState();
-          const propsFromState = mapStateToProps(state);
+          const propsFromState = <Partial<SP & P>>mapStateToProps(state);
 
-          if (isEqual(currentState, propsFromState)) {
+          if (isEqual(<SP>currentState, propsFromState)) {
             return;
           }
 

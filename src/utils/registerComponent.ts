@@ -1,7 +1,7 @@
-import Block from './Block';
+import { Block } from './Block';
 import Handlebars, { HelperOptions } from 'handlebars';
 
-export default function registerComponent(Component: typeof Block) {
+export function registerComponent(Component: typeof Block) {
   Handlebars.registerHelper(
     Component.componentName,
     ({ data, fn, hash }: HelperOptions) => {

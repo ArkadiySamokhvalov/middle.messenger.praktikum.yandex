@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import Router from './utils/Router';
-import Routes from './routes';
+import { Routes } from './routes';
 import AuthController from './controllers/AuthController';
-import AuthAPI from './api/AuthAPI';
 
 import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
@@ -12,7 +11,7 @@ import ChangePasswordPage from './pages/ChangePassword';
 
 // @ts-ignore
 import components from './components/**/index.ts';
-import registerComponent from './utils/registerComponent';
+import { registerComponent } from './utils/registerComponent';
 
 window.addEventListener('DOMContentLoaded', async () => {
   Object.values(components).forEach((component) =>
@@ -20,11 +19,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     registerComponent(component.default)
   );
 
-  const router = new Router();
-  const authController = new AuthController(new AuthAPI(), router);
-
-  router
-    .use(Routes.Index, LoginPage)
+  Router.use(Routes.Index, LoginPage)
     .use(Routes.SignUp, SignupPage)
     .use(Routes.Chat, ChatPage)
     .use(Routes.UserSettings, UserSettingsPage)
@@ -40,18 +35,17 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    await authController.fetchUser();
-    router.start();
+    await AuthController.fetchUser();
+    Router.start();
 
     if (!isProtectedRoute) {
-      router.go(Routes.Chat);
+      Router.go(Routes.Chat);
     }
   } catch (e) {
-    console.log('index ', e);
-    router.start();
+    Router.start();
 
     if (isProtectedRoute) {
-      router.go(Routes.Index);
+      Router.go(Routes.Index);
     }
   }
 });

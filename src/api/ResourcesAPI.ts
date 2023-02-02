@@ -1,11 +1,11 @@
-import BaseAPI from './BaseAPi';
+import { BaseAPI } from './BaseAPi';
 
-export default class ResourcesAPI extends BaseAPI {
+export class ResourcesAPI extends BaseAPI {
   constructor() {
     super('/resources');
   }
 
   public getResource(path: string) {
-    return this.http.get(`/${path}`);
+    return `https://ya-praktikum.tech/api/v2/resources${path}`;
   }
 }

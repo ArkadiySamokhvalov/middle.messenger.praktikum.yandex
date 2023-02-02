@@ -1,17 +1,14 @@
-import isObject from './isObject';
-import isArray from './isArray';
+import { isObject } from './isObject';
+import { isArray } from './isArray';
+import { T_PlainObject } from '../../typings/types';
 
-type PlainObject<T = any> = {
-  [k in string]: T;
-};
-
-function isArrayOrObject(value: unknown): value is [] | PlainObject {
+function isArrayOrObject(value: unknown): value is [] | T_PlainObject {
   return isObject(value) || isArray(value);
 }
 
-export default function isEqual(
-  targetObj: PlainObject,
-  sourceObj: PlainObject
+export function isEqual(
+  targetObj: T_PlainObject,
+  sourceObj: T_PlainObject
 ): boolean {
   if (Object.keys(targetObj).length !== Object.keys(sourceObj).length) {
     return false;

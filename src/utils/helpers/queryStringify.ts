@@ -1,7 +1,7 @@
-import isObject from './isObject';
-import { Indexed } from '../../typings/types';
+import { isObject } from './isObject';
+import { T_Indexed } from '../../typings/types';
 
-function objectStringify(obj: Indexed): string[] {
+function objectStringify(obj: T_Indexed): string[] {
   return Object.entries(obj).map(([key, value]) => {
     if (typeof value === 'object' && value !== 'null') {
       return `[${key}]${objectStringify(value)}`;
@@ -11,7 +11,7 @@ function objectStringify(obj: Indexed): string[] {
   });
 }
 
-export default function queryStringify(data: Indexed): string | never {
+export function queryStringify(data: T_Indexed): string | never {
   if (!isObject(data)) {
     throw new Error('input must be an object');
   }

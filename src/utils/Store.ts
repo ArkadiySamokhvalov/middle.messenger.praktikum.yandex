@@ -1,11 +1,11 @@
-import set from './helpers/set';
-import EventBus from './EventBus';
+import { set } from './helpers/set';
+import { EventBus } from './EventBus';
 
 export enum StoreEvents {
   Updated = 'updated',
 }
 
-export default class Store extends EventBus {
+class Store extends EventBus {
   private static __instance: Store;
   private _state: any = {};
 
@@ -27,4 +27,10 @@ export default class Store extends EventBus {
     set(this.getState(), keypath, data);
     this.emit(StoreEvents.Updated, this.getState());
   }
+
+  public clearState() {
+    this._state = {};
+  }
 }
+
+export default new Store();

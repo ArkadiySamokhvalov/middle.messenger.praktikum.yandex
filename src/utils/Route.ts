@@ -1,7 +1,7 @@
-import Block from './Block';
-import render from './renderDOM';
+import { Block } from './Block';
+import { renderDOM } from './renderDOM';
 
-export default class Route {
+export class Route {
   private _block: Block | null = null;
 
   constructor(
@@ -30,7 +30,7 @@ export default class Route {
   public render() {
     if (!this._block) {
       this._block = new this._blockClass();
-      render(this._props.rootQuery as string, this._block);
+      renderDOM(this._props.rootQuery as string, this._block);
       return;
     }
   }
