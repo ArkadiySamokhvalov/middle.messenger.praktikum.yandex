@@ -56,7 +56,6 @@
     position: absolute;
     top: 60px;
     right: 0.5rem;
-    display: none;
     margin: 0;
     padding: 0.5rem;
     color: white;
@@ -64,10 +63,6 @@
     background: #22202e;
     border: 3px solid #a71212;
     border-radius: 4px;
-
-    &_show {
-      display: block;
-    }
   }
 
   // .form__control + .form__submit

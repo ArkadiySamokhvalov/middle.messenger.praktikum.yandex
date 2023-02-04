@@ -80,6 +80,10 @@ class SignupPageBase extends Block {
             {{#Link className="form__link" to=../loginLink}}
               Уже зарегистрированы? Войти.
             {{/Link}}
+
+            {{#if ../error}}
+              <div class="form__error">{{../error}}</div>
+            {{/if}}
           {{/Form}}
           {{{Icon className="main__loader" icon="loader"}}}
         {{/Main}}

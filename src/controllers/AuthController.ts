@@ -9,6 +9,7 @@ import ChatsController from './ChatsController';
 const enum Errors {
   'Login or password is incorrect' = 'Неверный логин или пароль',
   'Cookie is not valid' = 'Файл cookie недействителен',
+  'User already in system' = 'Пользователь уже авторизован',
 }
 
 class AuthController {
@@ -22,6 +23,9 @@ class AuthController {
       await req();
     } catch (e: unknown) {
       Store.set('user.error', Errors[e.reason]);
+      if (e.reason === 'User already in system') {
+        this._router.go(Routes.Chat);
+      }
     } finally {
       Store.set('user.isLoading', false);
     }

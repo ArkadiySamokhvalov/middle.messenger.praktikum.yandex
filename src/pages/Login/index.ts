@@ -5,9 +5,12 @@ import AuthController from '../../controllers/AuthController';
 import { T_SigninData } from '../../typings/types';
 import { withStore } from '../../hocs/withStore';
 import { formDataToObj } from '../../utils/helpers/formDataToObj';
+import Store from '../../utils/Store';
 
 class LoginPageBase extends Block {
   constructor() {
+    const state = Store.getState();
+
     super({
       signupLink: Routes.SignUp,
       submitLogin: (e: Event) => {
@@ -25,6 +28,7 @@ class LoginPageBase extends Block {
         message:
           'От 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра.',
       },
+      user: state.user?.data,
     });
   }
 
@@ -53,7 +57,9 @@ class LoginPageBase extends Block {
               Нет аккаунта?
             {{/Link}}
 
-            <div class="form__error"></div>
+            {{#if ../error}}
+              <div class="form__error">{{../error}}</div>
+            {{/if}}
           {{/Form}}
           {{{Icon className="main__loader" icon="loader"}}}
         {{/Main}}
