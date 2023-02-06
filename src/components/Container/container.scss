@@ -1,7 +1,9 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .container {
   @include container("lg");
+
+  max-width: 100%;
 }

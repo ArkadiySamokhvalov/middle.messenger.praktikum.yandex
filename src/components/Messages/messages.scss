@@ -1,6 +1,6 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .messages {
   position: absolute;
@@ -23,100 +23,8 @@
     margin-bottom: torem(5);
     padding: torem(3) torem(4);
     color: $textAccent;
-    font-size: torem(10);
+    font-size: torem(14);
     background-color: $accent;
     border-radius: $border-radius;
-  }
-
-  // .messages__item-img
-  &__item-img {
-    // display: none;
-    max-width: 250px;
-    max-height: 250px;
-    border-radius: $border-radius;
-    cursor: pointer;
-  }
-
-  // .messages__item-text
-  &__item-text {
-    margin-bottom: torem(4);
-    font-size: torem(12);
-  }
-
-  // .messages__bottom
-  &__bottom {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-
-  // .messages__item-status
-  &__item-status {
-    display: none;
-    width: 15px;
-    height: 15px;
-    color: $secondary;
-
-    &_recieved {
-      color: $blue;
-    }
-  }
-
-  // .messages__item-time
-  &__item-time {
-    & + .messages__item-status {
-      margin-left: torem(4);
-    }
-  }
-
-  // .messages__item
-  &__item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: max-content;
-    max-width: 250px;
-    margin-right: auto;
-    margin-left: torem(12);
-    padding: torem(4) torem(8);
-    color: $text;
-    font-size: torem(12);
-    background-color: $mainHover;
-    border-radius: $border-radius;
-
-    & + .messages__item {
-      margin-top: torem(5);
-    }
-
-    &::before {
-      position: absolute;
-      bottom: 0;
-      left: -12px;
-      border: 12px solid transparent;
-      border-bottom-color: $mainHover;
-      content: "";
-    }
-
-    &_own {
-      margin-right: torem(12);
-      margin-left: auto;
-      color: $textAccent;
-      background-color: $inputBg;
-
-      &::before {
-        right: -12px;
-        left: unset;
-        border-bottom-color: $inputBg;
-      }
-
-      .messages__item-status {
-        display: inline-block;
-        color: $mainHover;
-      }
-
-      .messages__item-time {
-        color: $mainHover;
-      }
-    }
   }
 }

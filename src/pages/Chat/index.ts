@@ -1,135 +1,226 @@
 import './chat.scss';
-import avatar1 from '../../../static/img/avatar1.jpg';
-import avatar2 from '../../../static/img/avatar2.jpg';
-import avatar3 from '../../../static/img/avatar3.jpg';
-import avatar4 from '../../../static/img/avatar4.jpg';
-import avatar5 from '../../../static/img/avatar5.jpg';
-import Block from '../../utils/Block';
-import Validator from '../../utils/Validator';
-import RoutePage from '..';
-import renderDOM from '../../utils/renderDOM';
+import AuthController from '../../controllers/AuthController';
+import ChatsController from '../../controllers/ChatsController';
+import { withStore } from '../../hocs/withStore';
+import { Routes } from '../../routes';
+import { Block } from '../../utils/Block';
+import Router from '../../utils/Router';
+import { formDataToObj } from '../../utils/helpers/formDataToObj';
+import { showModal, submitForm } from '../../utils/helpers/modalHelpers';
+import { T_ChatData } from '../../typings/types';
+import UsersController from '../../controllers/UsersController';
+import Store from '../../utils/Store';
 
-export default class ChatPage extends Block {
+class ChatPageBase extends Block {
   constructor() {
-    super();
+    const state = Store.getState();
 
-    this.setProps({
-      redirectToRoutePage: () => renderDOM('root', new RoutePage()),
-      avatar1,
-      avatar2,
-      avatar3,
-      avatar4,
-      avatar5,
+    super({
+      menuItems: [
+        {
+          icon: 'users',
+          text: 'Создать чат',
+          onClick: () => showModal('add_chat'),
+        },
+        // {
+        //   icon: 'user-plus',
+        //   text: 'Добавить контакт',
+        //   onClick: () => showModal('add_user'),
+        // },
+        {
+          icon: 'settings',
+          text: 'Настройки',
+          onClick: () => Router.go(Routes.UserSettings),
+        },
+        {
+          icon: 'arrow-out',
+          text: 'Выйти',
+          onClick: () => AuthController.logout(),
+        },
+      ],
+      openAddChat: () => showModal('add_chat'),
+      openMenu: () => showModal('menu'),
+      openAddUsersToChat: () => showModal('add_users_to_chat'),
+      submitDeleteChat: (e: Event) => {
+        const form = <HTMLFormElement>e.currentTarget;
+        const error = 'Ошибка! Неполучилось удалить чат.';
+        submitForm(form, error, () => {
+          ChatsController.deleteChat(this.props.selectedChat.id);
+        });
+      },
+      submitAddChat: (e: Event) => {
+        const form = <HTMLFormElement>e.currentTarget;
+        const error = 'Ошибка! Неполучилось создать чат.';
+        submitForm(form, error, () => {
+          const data = formDataToObj(new FormData(form));
+          ChatsController.createChat(data.chat_title);
+        });
+      },
+      submitAddUser: (e: Event) => {
+        const form = <HTMLFormElement>e.currentTarget;
+        const error = 'Ошибка! Неполучилось добавить контакт.';
+        submitForm(form, error, () => {
+          const data = formDataToObj(new FormData(form));
+          ChatsController.createPersonalChat(data.user_login);
+        });
+      },
+      submitUpdateAvatar: (e: Event) => {
+        const form = <HTMLFormElement>e.currentTarget;
+        const error = 'Ошибка! Неполучилось установить аватар.';
+        submitForm(form, error, () => {
+          const data = new FormData(form);
+          data.append('chatId', this.props.selectedChat.id);
+          ChatsController.updateChatAvatar(data);
+        });
+      },
+      submitAddUserToChat: async (e: Event) => {
+        const form = <HTMLFormElement>e.currentTarget;
+        const error = 'Ошибка! Неполучилось создать чат.';
+        submitForm(form, error, async () => {
+          const data = formDataToObj(new FormData(form));
+          const user = await UsersController.getUserByLogin(data.user_login);
+          ChatsController.addUserToChat(this.props.selectedChat.id, user.id);
+        });
+      },
+      user: state.user?.data,
+      chats: state.chats?.data,
     });
+
+    ChatsController.fetchChats();
   }
 
-  protected componentDidMount(): void {
-    const page = <HTMLElement>this.getContent();
-    const searchForm = <HTMLFormElement>(
-      page.querySelector('form.chat__contact-header')
-    );
-    const chatForm = <HTMLFormElement>(
-      page.querySelector('form.chat__dialog-footer')
-    );
-
-    const chatFormValidator = new Validator(chatForm, {
-      message: {
-        message: 'Поле не должно быть пустым',
-      },
-    });
-
-    const searchFormValidator = new Validator(searchForm, {
-      contact_search: {
-        message: 'Поле не должно быть пустым',
-      },
-    });
-
-    chatFormValidator.init();
-    searchFormValidator.init();
-  }
-
-  render() {
+  public render() {
     return `
       <div class="body">
-        <header class="header">
-          <div class="container header__content row-between">
+        {{#Header}}
+          {{#Container className="header__content row-between"}}
             <div class="header__group">
-              {{{ButtonIcon text="Вернуться назад" icon="back" onClick=redirectToRoutePage}}}
               {{{Logo}}}
             </div>
             <div class="header__group header__icons">
-              {{{ButtonIcon text="Поиск по контактам" icon="search"}}}
-              {{{ButtonIcon text="Открыть меню" icon="menu"}}}
+              {{{Button className="header__icon" btnName="icon" type="button" text="Поиск по контактам" icon="search"}}}
+              {{{Button onClick=../openMenu className="header__icon" btnName="icon" type="button" text="Открыть меню" icon="menu"}}}
             </div>
-          </div>
-        </header>
+          {{/Container}}
+        {{/Header}}
 
         <main class="chat">
           <div class="chat__content">
             <aside class="chat__aside">
-              <form class="chat__contact-header">
+              {{#Form name="search" className="chat__contact-header"}}
                 {{{Control name="contact_search" placeholder="Поиск"}}}
-                {{{ButtonIcon text="Открыть меню" icon="menu"}}}
-              </form>
+                {{{Button onClick=../openMenu btnName="icon" type="button" text="Открыть меню" icon="menu"}}}
+              {{/Form}}
 
-              <div class="chat__contacts custom-scrollbar">
-                {{{Contact avatar=avatar1 name="Мария" lastMessage="Как впечатления?" time="9:36" counter="1"}}}
-                {{{Contact avatar=avatar2 online=true name="Сестра" lastMessage="смотри кто мне в бравл старс выпал" time="Вт"}}}
-                {{{Contact avatar=avatar3 name="Алексей Тренер" lastMessage="Как впечатления?" time="Вт"}}}
-                {{{Contact avatar=avatar4 online=true name="Катя Петренко" lastMessage="Я просто медленно подбираюсь к обустройству кухни...и для меня это ад" time="Пн"}}}
-                {{{Contact avatar=avatar5 name="Иван Дизайнер" lastMessage="Добрый, хорошо, буду ждать новостей" time="13.11.2022"}}}
-              </div>
+              {{{ChatContacts chats=chats selectedChat=selectedChat openModal=openAddChat userLogin=user.login}}}
             </aside>
 
-            <div class="chat__dialog">
-              <div class="chat__dialog-header">
-                {{{ Avatar img=avatar2 marker="true" }}}
-
-                <div class="row-column">
-                  {{#Name}}Сестра{{/Name}}
-                  {{#Time}}онлайн{{/Time}}
-                </div>
-
-                {{{ButtonIcon text="Открыть меню чата" icon="dots"}}}
-              </div>
-
-              <div class="chat__dialog-body">
-                <div class="messages custom-scrollbar">
-                  <div class="messages__content">
-                    <div class="messages__data">
-                      <span class="messages__data-text">
-                        15.11.2022
-                      </span>
-                    </div>
-                    {{{Message text="Ты уже вернулась домой?" className="messages__item_own" time="15:28"}}}
-                    {{{Message text="да" time="15:32"}}}
-                    {{{Message text="смотри кто мне в бравл старс выпал" img="message1" time="15:32"}}}
-                  </div>
-                </div>
-                <div class="chat__dialog-empty">
-                  Выберите, кому хотели бы написать
-                </div>
-              </div>
-              <form class="chat__dialog-footer">
-                {{{ButtonIcon text="Прикрепить файл" icon="paperclip"}}}
-                {{{Control name="message" placeholder="Написать сообщение..."}}}
-                {{{ButtonIcon text="Выбрать эмоджи" icon="smile"}}}
-                {{{ButtonIcon type="submit" text="Отправить сообщение" icon="send"}}}
-              </form>
-            </div>
-          </div>
-
-          <div class="chat__footer">
-            <div class="container">
-              <p class="chat__footer-text">
-                Нажмите на кнопку, чтобы создать чат или добавить контакт.
-              </p>
-
-              {{{ButtonIcon className="chat__footer-button" icon="plus-user"}}}
-            </div>
+            {{{ChatDialog chat=selectedChat messages=messages userId=user.id}}}
           </div>
         </main>
+
+        {{#Modal id="menu" className="modal_left"}}
+          <div class="modal__group">
+            <div class="modal__avatar">
+              {{{Avatar img=../user.avatar className="avatar_full" title=../user.display_name}}}
+            </div>
+
+            {{{Name className="modal__name" text=../user.display_name}}}
+          </div>
+
+          {{{Menu menuItem=../menuItems}}}
+        {{/Modal}}
+
+        {{#Modal id="add_chat"}}
+          {{#Title className="modal__title"}}Создать чат{{/Title}}
+
+          {{#Form name="add_chat" onSubmit=../submitAddChat}}
+            <div class="form__group">
+              {{{Control className="form__control" name="chat_title" label="Название чата"}}}
+            </div>
+
+            {{#Button btnName="modal" type="submit" className="modal__button"}}Добавить{{/Button}}
+          {{/Form}}
+        {{/Modal}}
+
+        {{#Modal id="add_user"}}
+          {{#Title className="modal__title"}}Добавить контакт{{/Title}}
+
+          {{#Form name="add_user" onSubmit=../submitAddUser}}
+            <div class="form__group">
+              {{{Control className="form__control" name="user_login" label="Логин пользователя"}}}
+            </div>
+
+            {{#Button btnName="modal" type="submit" className="modal__button"}}Добавить{{/Button}}
+          {{/Form}}
+        {{/Modal}}
+
+        {{#Modal id="add_user_to_chat"}}
+          {{#Title className="modal__title"}}Добавить контакт{{/Title}}
+
+          {{#Form name="add_user" onSubmit=../submitAddUserToChat}}
+            <div class="form__group">
+              {{{Control className="form__control" name="user_login" label="Логин пользователя"}}}
+            </div>
+
+            {{#Button btnName="modal" type="submit" className="modal__button"}}Добавить{{/Button}}
+          {{/Form}}
+        {{/Modal}}
+
+
+        {{#Modal id="chat_settings"}}
+          {{#Title className="modal__title"}}Настройки чата{{/Title}}
+
+          {{#Form name="chat_settings" onSubmit=../submitUpdateAvatar}}
+            <div class="form__group form__group_center">
+              {{{ControlFile avatar=../selectedChat.avatar name="avatar" accept="image/*"}}}
+            </div>
+
+            {{#Button btnName="modal" type="submit" className="modal__button"}}
+              Обновить
+            {{/Button}}
+          {{/Form}}
+
+          <div class="modal__separate-block">
+            {{#Button className="modal__row-button" btnName="secondary" type="button" onClick=../openAddUsersToChat}}
+              Добавить участников
+              {{{Counter text="0" className="modal__counter"}}}
+            {{/Button}}
+          </div>
+        {{/Modal}}
+
+        {{#Modal id="delete_chat"}}
+          {{#Title className="modal__title"}}Вы уверены, что хотите удалить чат?{{/Title}}
+
+          {{#Form name="delete_chat" onSubmit=../submitDeleteChat}}
+            {{#Button btnName="modal" type="submit" className="modal__button button_danger"}}Удалить{{/Button}}
+          {{/Form}}
+        {{/Modal}}
       </div>
     `;
   }
 }
+
+const withState = withStore((state) => {
+  const selectedChatId = state.selectedChat?.id;
+
+  if (!selectedChatId) {
+    return {
+      user: state.user?.data,
+      chats: state.chats?.data,
+      messages: undefined,
+      selectedChat: undefined,
+    };
+  }
+
+  return {
+    user: state.user?.data,
+    chats: state.chats?.data,
+    messages: (state.messages || {})[selectedChatId] || [],
+    selectedChat: state.chats.data.filter(
+      (chat: T_ChatData) => chat.id === state.selectedChat?.id
+    )[0],
+  };
+});
+const ChatPage = withState(ChatPageBase);
+export default ChatPage;

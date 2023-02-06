@@ -1,26 +1,51 @@
-import Block from '../../utils/Block';
+import { Block } from '../../utils/Block';
+import {
+  getControls,
+  validateForm,
+  validateInput,
+} from '../../utils/helpers/validateFormHelpers';
 import './form.scss';
 
 type FormProps = {
+  name: string;
   className?: string;
-  onSubmit?: () => void;
+  onSubmit: (e: Event) => void;
 };
 
 export default class Form extends Block {
   public static componentName = 'Form';
+  private errors: Set<string> = new Set();
 
-  constructor({ className, onSubmit }: FormProps) {
+  constructor(props: FormProps) {
     super({
-      className,
+      ...props,
+      className: props.className ? `form ${props.className}` : 'form',
       events: {
-        submit: onSubmit,
+        submit: (e: Event) => {
+          e.preventDefault();
+          const form = <HTMLFormElement>e.currentTarget;
+          const controls = getControls(form);
+
+          controls.forEach(({ input }) => {
+            const error = validateInput(input, true);
+            if (error) {
+              this.errors.add(input.name);
+            } else {
+              this.errors.delete(input.name);
+            }
+          });
+
+          if (validateForm(form, this.errors)) {
+            props.onSubmit(e);
+          }
+        },
       },
     });
   }
 
   render() {
     return `
-      <form class="form {{className}}"></form>
+      <form name="{{name}}" class="{{className}}"></form>
     `;
   }
 }

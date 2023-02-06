@@ -1,23 +1,29 @@
-import Block from '../../utils/Block';
+import { Block } from '../../utils/Block';
 import './main.scss';
 
 type MainProps = {
   className?: string;
-  onSubmit?: () => void;
+  isLoading?: boolean;
 };
 
 export default class Main extends Block {
   public static componentName = 'Main';
 
   constructor(props: MainProps) {
-    super(props);
+    let classes = 'main';
+    if (props.isLoading) classes += ' main_loading';
 
-    console.log(props);
+    super({
+      ...props,
+      className: props.className
+        ? `${classes} ${props.className}`
+        : `${classes}`,
+    });
   }
 
   render() {
     return `
-      <main class="main"></main>
+      <main class="{{className}}"></main>
     `;
   }
 }

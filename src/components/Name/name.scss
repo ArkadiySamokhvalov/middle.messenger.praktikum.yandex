@@ -1,8 +1,8 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .name {
   font-weight: 700;
-  font-size: torem(14);
+  font-size: torem(16);
 }

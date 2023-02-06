@@ -1,0 +1,144 @@
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
+
+.modal {
+  position: fixed; /* Stay in place */
+  top: 0;
+  left: 0;
+  z-index: 1; /* Sit on top */
+  display: none;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  padding-top: 100px; /* Location of the box */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0 0 0); /* Fallback color */
+  background-color: rgb(0 0 0 / 40%); /* Black w/ opacity */
+
+  // .modal__content
+  &__content {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    min-width: 320px;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0.75rem;
+    background-color: $mainBg;
+    border-radius: $border-radius;
+    box-shadow: 0 0 2px 0 $secondary;
+    visibility: hidden;
+    opacity: 0;
+    transition: $transition-duration;
+  }
+
+  // .modal__header
+  &__header {
+    margin-bottom: torem(40);
+  }
+
+  // .modal__close
+  &__close {
+    float: right;
+  }
+
+  // .modal__group
+  &__group {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $secondary;
+  }
+
+  // .modal__avatar
+  &__avatar {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+
+  // .modal__title
+  &__title {
+    width: 80%;
+    margin: 0 auto 1.5rem;
+    line-height: 1.5;
+  }
+
+  // .modal__name
+  &__name {
+    font-weight: 400;
+  }
+
+  // .modal__menu
+  &__menu {
+    border-top: 1px solid $secondary;
+  }
+
+  // .modal__button
+  &__button {
+    display: block;
+    margin-left: auto;
+  }
+
+  // .modal__row-button
+  &__row-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  // .modal__separate-block
+  &__separate-block {
+    margin-top: 1rem;
+  }
+
+  // .modal__icon-plus
+  &__icon-plus {
+    transform: rotate(45deg);
+  }
+
+  // .modal_left
+  &_left {
+    width: 0;
+    padding-top: 0;
+
+    &.modal_active {
+      width: 100%;
+    }
+
+    .modal__content {
+      right: unset;
+      left: unset;
+      width: 20%;
+      min-width: 276px;
+      max-width: 320px;
+      height: 100%;
+    }
+  }
+
+  // .modal_active
+  &_active {
+    display: block;
+
+    .modal__content {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  // .modal_fade-left
+  &_fade-left {
+    .modal__content {
+      left: -276px;
+      transition: left 3s;
+    }
+
+    &.modal_active {
+      .modal__content {
+        left: 0;
+        transition: left 3s;
+      }
+    }
+  }
+}

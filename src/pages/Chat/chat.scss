@@ -1,20 +1,14 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles/helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .chat {
   flex-grow: 1;
-  height: 100%;
+  height: calc(100% - 60px);
   overflow-y: auto;
   background-color: $mainBg;
 
   @include media("sm") {
-    @include container("lg");
-
-    flex-grow: 0;
-    height: calc(100vh - 100px);
-    margin-top: 25px;
-    margin-bottom: 25px;
     overflow-y: initial;
     background-color: unset;
   }
@@ -41,7 +35,9 @@
     @include media("sm") {
       display: flex;
       flex-direction: column;
-      width: 276px;
+      width: 20%;
+      min-width: 276px;
+      max-width: 320px;
       background-color: $mainBg;
       border-top-left-radius: $border-radius;
       border-bottom-left-radius: $border-radius;
@@ -54,30 +50,16 @@
 
     @include media("sm") {
       display: flex;
+      align-items: center;
       padding: torem(12) torem(8);
       background-color: $darkBg;
     }
 
     .control {
       flex-grow: 1;
-      font-size: torem(12);
-    }
-
-    .button-icon {
-      padding: 5px;
-      padding-right: 0;
-    }
-  }
-
-  // .chat__contacts
-  &__contacts {
-    .contact {
-      padding-right: torem(8);
-      padding-left: torem(8);
-    }
-    @include media("sm") {
-      flex-grow: 1;
-      overflow-y: auto;
+      height: 40px;
+      margin-right: torem(8);
+      font-size: torem(16);
     }
   }
 
@@ -114,109 +96,6 @@
 
       .icon {
         height: 21px;
-      }
-    }
-  }
-
-  // .chat__dialog
-  &__dialog {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background: linear-gradient(0deg, rgb(0 0 0 / 30%), rgb(0 0 0 / 30%));
-
-    @include media("sm") {
-      display: flex;
-      flex-grow: 1;
-    }
-
-    // ..chat__dialog-header
-    &-header {
-      display: flex;
-      align-items: center;
-      padding: torem(5) torem(8);
-      background-color: $darkBg;
-      border-top-right-radius: 5px;
-
-      @include media("sm") {
-        padding-top: torem(12);
-        padding-bottom: torem(12);
-      }
-
-      .avatar {
-        margin-right: torem(8);
-        @include media("sm") {
-          display: none;
-        }
-      }
-
-      .row-column {
-        flex-grow: 1;
-      }
-
-      .name {
-        @include media("sm") {
-          margin-bottom: 2.2px;
-        }
-      }
-    }
-
-    // .chat__dialog-body
-    &-body {
-      position: relative;
-      flex-grow: 1;
-      overflow-y: auto;
-    }
-
-    // ..chat__dialog-empty
-    &-empty {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      display: none;
-      width: calc(100% - 8px * 2);
-      max-width: 320px;
-      margin: 0 auto;
-      padding-top: torem(6);
-      padding-bottom: torem(6);
-      color: $textAccent;
-      font-size: torem(14);
-      text-align: center;
-      background-color: $accent;
-      border-radius: $border-radius;
-      transform: translate(-50%, -50%);
-    }
-
-    // .chat__dialog-footer
-    &-footer {
-      display: flex;
-      padding: torem(12) torem(8);
-      background-color: $darkBg;
-      border-top-right-radius: 5px;
-
-      .control {
-        flex-grow: 1;
-        margin-right: torem(5);
-        margin-left: torem(5);
-        font-size: torem(12);
-      }
-
-      .button-icon {
-        padding: 5px;
-      }
-
-      // .button-icon:first-child {
-      //   margin-right: torem(8);
-      // }
-
-      .button-icon:last-child {
-        padding: 0;
-        padding-top: 2px;
-
-        .icon {
-          width: 27px;
-          height: 27px;
-        }
       }
     }
   }

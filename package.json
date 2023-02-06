@@ -21,20 +21,36 @@
     "lint": "eslint --ignore-path .eslintignore --ext .ts src",
     "lint:fix": "npm run lint -- --fix"
   },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "config/git/commitizen.js"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
+    }
+  },
   "engines": {
     "node": ">=16.13.2"
   },
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars-precompile": "1.0.1",
+    "@commitlint/cli": "17.3.0",
     "@parcel/resolver-glob": "2.8.0",
     "@parcel/transformer-sass": "2.8.0",
     "@typescript-eslint/eslint-plugin": "5.44.0",
     "@typescript-eslint/parser": "5.44.0",
+    "cz-customizable": "7.0.0",
     "eslint": "8.28.0",
+    "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-prettier": "4.2.1",
-    "eslint-config-prettier": "8.5.0",
     "handlebars": "4.7.7",
+    "husky": "8.0.2",
     "lint-staged": "13.0.3",
     "nanoid": "4.0.0",
     "parcel": "2.8.0",

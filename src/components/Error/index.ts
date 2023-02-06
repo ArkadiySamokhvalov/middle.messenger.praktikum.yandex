@@ -1,8 +1,6 @@
 import './error.scss';
-
-import Block from '../../utils/Block';
-import renderDOM from '../../utils/renderDOM';
-import ChatPage from '../../pages/Chat';
+import { Block } from '../../utils/Block';
+import { Routes } from '../../routes';
 
 type ErrorProps = {
   name: string;
@@ -16,10 +14,9 @@ export default class Error extends Block {
   public static componentName = 'Error';
 
   constructor(props: ErrorProps) {
-    super(props);
-
-    this.setProps({
-      redirectToChats: () => renderDOM('root', new ChatPage()),
+    super({
+      ...props,
+      chatPage: Routes.Chat,
     });
   }
 
@@ -27,13 +24,14 @@ export default class Error extends Block {
     return `
       <div class="error">
         <strong class="error__name">{{name}}</strong>
+
         {{#Title class="error__title"}}
           {{title}}
         {{/Title}}
 
         <p class="error__text">{{text}}</p>
 
-        {{#Link className="error__back" onClick=redirectToChats}}
+        {{#Link className="error__back" to=chatPage}}
           {{{ Icon icon="back" }}}
           Вернуться к чатам.
         {{/Link}}

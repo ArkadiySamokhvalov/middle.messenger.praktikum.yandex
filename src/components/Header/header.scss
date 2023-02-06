@@ -1,10 +1,12 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .header {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  height: torem(60);
+  padding: torem(12) 0;
   background-color: $darkBg;
 
   // .header__content
@@ -21,9 +23,7 @@
 
   // .header__icons
   &__icons {
-    .button-icon {
-      padding: 5px;
-    }
+    padding: 5px !important;
 
     @include media("sm") {
       display: none;

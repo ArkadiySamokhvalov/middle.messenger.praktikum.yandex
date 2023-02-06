@@ -1,20 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import EventBus from './EventBus';
-import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import { nanoid } from 'nanoid';
 
-type BlockEvents<P = any> = {
-  init: [];
-  'flow:component-did-mount': [];
-  'flow:component-did-update': [P, P];
-  'flow:render': [];
-};
+import { EventBus } from './EventBus';
+import { isEqual } from './helpers/isEqual';
+import { Props } from '../typings/types';
 
-type Props<P extends Record<string, unknown> = any> = {
-  events?: Record<string, () => void>;
-} & P;
-
-export default class Block<P extends Record<string, unknown> = any> {
+export class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -23,7 +14,7 @@ export default class Block<P extends Record<string, unknown> = any> {
   } as const;
   public static componentName: string;
   private _element: HTMLElement | null = null;
-  private _eventBus: () => EventBus<BlockEvents<Props<P>>>;
+  private _eventBus: () => EventBus;
   protected props: Props<P>;
   public children: Record<string, Block>;
   public id = nanoid(6);
@@ -34,7 +25,7 @@ export default class Block<P extends Record<string, unknown> = any> {
     this.children = children;
     this.initChildren();
 
-    const eventBus = new EventBus<BlockEvents<Props<P>>>();
+    const eventBus = new EventBus();
     this._eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -44,7 +35,7 @@ export default class Block<P extends Record<string, unknown> = any> {
     props: Props<P>;
     children: Record<string, Block>;
   } {
-    const props = {} as Record<string, unknown>;
+    const props = {} as Record<string, any>;
     const children: Record<string, Block> = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
@@ -79,7 +70,7 @@ export default class Block<P extends Record<string, unknown> = any> {
 
   protected initChildren() {}
 
-  private _registerEvents(eventBus: EventBus<BlockEvents>) {
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -87,8 +78,11 @@ export default class Block<P extends Record<string, unknown> = any> {
   }
 
   private _init() {
+    this.init();
     this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
+
+  protected init() {}
 
   private _componentDidMount() {
     this.componentDidMount();
@@ -110,8 +104,8 @@ export default class Block<P extends Record<string, unknown> = any> {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
+    if (isEqual(oldProps, newProps)) return false;
     return true;
   }
 
@@ -132,8 +126,10 @@ export default class Block<P extends Record<string, unknown> = any> {
     this._addEvents();
   }
 
-  protected render(): string {
-    return '';
+  protected render(template?: string): string {
+    return `
+      ${template}
+    `;
   }
 
   private _addEvents() {
@@ -173,7 +169,18 @@ export default class Block<P extends Record<string, unknown> = any> {
       const content = component.getContent();
 
       if (content) {
-        content.append(...Array.from(stub.childNodes));
+        const elems = Array.from(stub.childNodes);
+        const childPlace = content.querySelector('[data-children]');
+
+        if (childPlace) {
+          const parent = childPlace.parentNode;
+          elems.forEach((elem) => parent?.insertBefore(elem, childPlace));
+          childPlace.remove();
+          stub.replaceWith(content);
+        } else {
+          content.append(...elems);
+        }
+
         stub.replaceWith(content);
       }
     });
@@ -185,7 +192,7 @@ export default class Block<P extends Record<string, unknown> = any> {
     return document.createElement(tagName);
   }
 
-  public setProps = (nextProps: Partial<Props<P>>) => {
+  public setProps = (nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }

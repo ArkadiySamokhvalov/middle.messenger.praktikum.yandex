@@ -1,29 +1,21 @@
-import Block from '../../utils/Block';
-import renderDOM from '../../utils/renderDOM';
-import RoutePage from '..';
 import image from 'url:../../../static/img/404.png';
+import { Block } from '../../utils/Block';
 
 export default class Error404Page extends Block {
   constructor() {
-    super();
-
-    this.setProps({
-      redirectToRoutePage: () => renderDOM('root', new RoutePage()),
-      image,
-    });
+    super({ image });
   }
 
   render() {
     return `
       <div class="body">
-        <header class="header">
-          <div class="container header__content">
-            {{{ButtonIcon text="Вернуться назад" icon="back" onClick=redirectToRoutePage}}}
+        {{#Header}}
+          {{#Container className="header__content"}}
             {{{Logo}}}
-          </div>
-        </header>
+          {{/Container}}
+        {{/Header}}
 
-        <main class="main">
+        {{#Main}}
           {{{Error
             name="404"
             title="Ничего не найдено."
@@ -32,7 +24,7 @@ export default class Error404Page extends Block {
             alt="Мужчина в чёрном костюме с длинными черными волосами, разводит руками и смотрит по сторонам в недоумении."
             image=image
           }}}
-        </main>
+        {{/Main}}
       </div>
     `;
   }

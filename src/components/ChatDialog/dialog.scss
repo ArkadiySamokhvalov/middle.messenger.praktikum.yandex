@@ -1,0 +1,102 @@
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
+
+.dialog {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  background: linear-gradient(0deg, rgb(0 0 0 / 30%), rgb(0 0 0 / 30%));
+
+  @include media("sm") {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  // .dialog__header
+  &__header {
+    display: flex;
+    align-items: center;
+    box-sizing: content-box;
+    height: 40px;
+    padding: torem(5) torem(8);
+    background-color: $darkBg;
+    border-top-right-radius: 5px;
+
+    @include media("sm") {
+      padding-top: torem(12);
+      padding-bottom: torem(12);
+    }
+
+    .avatar {
+      margin-right: torem(8);
+    }
+
+    .row-column {
+      flex-grow: 1;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .time {
+      font-size: torem(14);
+    }
+  }
+
+  // .dialog__body
+  &__body {
+    position: relative;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  // .dialog__add-members
+  &__add-members {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% - 16px);
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 0.5rem 0;
+    color: #000;
+    font-size: 1rem;
+    text-align: center;
+    background-color: #f5ca9d;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+  }
+
+  // .dialog__empty
+  &__empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    // display: none;
+    width: calc(100% - 8px * 2);
+    max-width: 320px;
+    margin: 0 auto;
+    padding: torem(8) 0;
+    color: $textAccent;
+    font-size: torem(16);
+    text-align: center;
+    background-color: $accent;
+    border-radius: $border-radius;
+    transform: translate(-50%, -50%);
+  }
+
+  // .dialog__footer
+  &__footer {
+    display: flex;
+    align-items: center;
+    padding: torem(16) torem(12);
+    background-color: $darkBg;
+    border-top-right-radius: 5px;
+
+    .control {
+      flex-grow: 1;
+      margin: 0 torem(12);
+      font-size: torem(16);
+    }
+  }
+}

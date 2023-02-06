@@ -1,45 +1,68 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .form {
   width: 100%;
-  max-width: 280px;
+  // max-width: 280px;
   margin-right: auto;
   margin-left: auto;
 
-  // .form_invalid
-  &_invalid {
-    .control__input_invalid {
-      color: $red;
-      box-shadow: inset 0 -3px $red !important;
+  // .form__btns
+  &__btns {
+    display: flex;
+    justify-content: flex-end;
 
-      &:focus-visible {
-        color: $textAccent;
+    .button {
+      &:not(:nth-child(even)) {
+        margin-right: torem($px);
       }
     }
-
-    .control__feedback {
-      display: block;
-    }
-  }
-
-  .control__input_valid {
-    color: $textAccent;
-    box-shadow: inset 0 -3px $green !important;
   }
 
   // .form__group
   &__group {
     margin-bottom: 1rem;
+
+    // .form__group_row
+    &_row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &_center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   // .form__link
   &__link {
     justify-content: center;
-    margin-top: 1rem;
+    margin-top: torem(20);
     color: $accentTr;
-    font-size: torem(14);
+    font-size: torem(18);
+  }
+
+  // .form__submit
+  &__submit {
+    padding: torem(10) !important;
+  }
+
+  // .form__error
+  &__error {
+    position: absolute;
+    top: 60px;
+    right: 0.5rem;
+    margin: 0;
+    padding: 0.5rem;
+    color: white;
+    font-size: torem(18);
+    background: #22202e;
+    border: 3px solid #a71212;
+    border-radius: 4px;
   }
 
   // .form__control + .form__submit

@@ -1,0 +1,75 @@
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
+
+.message {
+  display: flex;
+  align-items: flex-end;
+
+  // .message__avatar
+  &__avatar {
+    flex-shrink: 0;
+    margin-right: torem(8);
+  }
+
+  // .message__content
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    padding: torem(4) torem(8);
+    background-color: $mainBg;
+    border-radius: $border-radius $border-radius $border-radius 0;
+
+    // .message__content::before
+    &::before {
+      position: absolute;
+      bottom: 0;
+      left: -16px;
+      z-index: -1;
+      border: 16px solid transparent;
+      border-bottom-color: $mainBg;
+      content: "";
+    }
+  }
+
+  // .message__row
+  &__row {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  // .message__username
+  &__username {
+    margin-bottom: torem(4);
+  }
+
+  // .message__text
+  &__text {
+    flex-grow: 1;
+    font-size: torem(16);
+    line-height: torem(22);
+  }
+
+  // .message__time
+  &__time {
+    margin-left: torem(8);
+    font-size: torem(14);
+  }
+
+  // .message_own
+  &_own {
+    .message__content {
+      background-color: $mainHover;
+
+      &::before {
+        border-bottom-color: $mainHover;
+      }
+    }
+  }
+
+  & + .message {
+    margin-top: 1rem;
+  }
+}

@@ -1,29 +1,21 @@
-import Block from '../../utils/Block';
-import renderDOM from '../../utils/renderDOM';
-import RoutePage from '..';
 import image from 'url:../../../static/img/500.png';
+import { Block } from '../../utils/Block';
 
 export default class Error500Page extends Block {
   constructor() {
-    super();
-
-    this.setProps({
-      redirectToRoutePage: () => renderDOM('root', new RoutePage()),
-      image,
-    });
+    super({ image });
   }
 
   render() {
     return `
       <div class="body">
-        <header class="header">
-          <div class="container header__content">
-            {{{ButtonIcon text="Вернуться назад" icon="back" onClick=redirectToRoutePage}}}
+        {{#Header}}
+          {{#Container className="header__content"}}
             {{{Logo}}}
-          </div>
-        </header>
+          {{/Container}}
+        {{/Header}}
 
-        <main class="main">
+        {{#Main}}
           {{{Error
             name="500"
             title="Ошибка обращения к сервису"
@@ -32,7 +24,7 @@ export default class Error500Page extends Block {
             alt="Нарисованный бесёнок отключает провод из розетки."
             image=image
           }}}
-          </main>
+        {{/Main}}
       </div>
     `;
   }

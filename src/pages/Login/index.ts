@@ -1,68 +1,78 @@
 import '../../styles/_base.scss';
-import Block from '../../utils/Block';
-import renderDOM from '../../utils/renderDOM';
-import SignupPage from '../Signup';
-import RoutePage from '..';
-import Validator from '../../utils/Validator';
+import { Block } from '../../utils/Block';
+import { Routes } from '../../routes';
+import AuthController from '../../controllers/AuthController';
+import { T_SigninData } from '../../typings/types';
+import { withStore } from '../../hocs/withStore';
+import { formDataToObj } from '../../utils/helpers/formDataToObj';
+import Store from '../../utils/Store';
 
-export default class LoginPage extends Block {
+class LoginPageBase extends Block {
   constructor() {
-    super();
+    const state = Store.getState();
 
-    this.setProps({
-      redirectToRoutePage: () => renderDOM('root', new RoutePage()),
-      redirectToSignupPage: () => renderDOM('root', new SignupPage()),
-    });
-  }
-
-  protected componentDidMount(): void {
-    const page = <HTMLElement>this.getContent();
-    const form = <HTMLFormElement>page.querySelector('form');
-
-    const formValidator = new Validator(form, {
-      login: {
+    super({
+      signupLink: Routes.SignUp,
+      submitLogin: (e: Event) => {
+        const form = <HTMLFormElement>e.currentTarget;
+        const data = formDataToObj(new FormData(form));
+        AuthController.signin(<T_SigninData>data);
+      },
+      loginValidation: {
         pattern: '^[\\w_-]{2,19}[0-9a-zA-Z]$',
         message:
           'От 3 до 20 символов. Допустимы: латиница, цифры, дефис и нижнее подчёркивание. Не используйте пробелы и другие спецсимволы.',
       },
-      password: {
+      passwordValidation: {
         pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,40}$',
         message:
           'От 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра.',
       },
+      user: state.user?.data,
     });
-
-    formValidator.init();
   }
 
-  render() {
+  public render() {
     return `
       <div class="body">
-        <header class="header">
-          <div class="container header__content">
-            {{{ButtonIcon text="Вернуться назад" icon="back" onClick=redirectToRoutePage}}}
+        {{#Header}}
+          {{#Container className="header__content"}}
             {{{Logo}}}
-          </div>
-        </header>
+          {{/Container}}
+        {{/Header}}
 
-        <main class="main">
+        {{#Main isLoading=isLoading}}
           {{#Title}}Авторизация{{/Title}}
 
-          <form class="form">
-            {{{Control className="form__control" name="login" label="Логин"}}}
+          {{#Form name="login" onSubmit=../submitLogin}}
+            {{{Control className="form__control" name="login" label="Логин" validation=../loginValidation}}}
 
-            {{{ControlPassword className="form__control" name="password" label="Пароль"}}}
+            {{{ControlPassword className="form__control" name="password" label="Пароль" validation=../passwordValidation}}}
 
-            {{#ButtonPrimary type="submit" className="form__submit"}}
+            {{#Button btnName="primary" type="submit" className="button_full form__submit"}}
               Войти
-            {{/ButtonPrimary}}
+            {{/Button}}
 
-            {{#Link className="form__link" onClick=redirectToSignupPage}}
+            {{#Link className="form__link" to=../signupLink}}
               Нет аккаунта?
             {{/Link}}
-          </form>
-        </main>
+
+            {{#if ../error}}
+              <div class="form__error">{{../error}}</div>
+            {{/if}}
+          {{/Form}}
+          {{{Icon className="main__loader" icon="loader"}}}
+        {{/Main}}
       </div>
     `;
   }
 }
+
+const withUser = withStore((state) => {
+  return {
+    isLoading: state.user?.isLoading,
+    error: state.user?.error,
+  };
+});
+const LoginPage = withUser(LoginPageBase);
+export default LoginPage;

@@ -1,0 +1,73 @@
+@use "sass:color";
+
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
+
+.button {
+  &__icon {
+    display: flex;
+    padding: 0;
+    color: $text;
+    background-color: transparent;
+    border: none;
+    transition: $transition-duration;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+
+  &__secondary {
+    padding: 8px;
+    color: $text;
+    background-color: transparent;
+    border: none;
+    transition: $transition-duration;
+
+    &:hover {
+      background-color: $mainHover;
+    }
+  }
+
+  &__primary {
+    padding: 8px;
+    color: $textAccent;
+    font-weight: 700;
+    text-align: center;
+    background-color: $accent;
+    border: none;
+    border-radius: $border-radius;
+    box-shadow: inset 0 -3px 0 0 color.adjust($color: $accent, $lightness: -25%);
+    transition: $transition-duration;
+
+    &:hover {
+      background-color: color.adjust($color: $accent, $lightness: -5%);
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  &__modal {
+    padding: 8px;
+    color: $text;
+    background-color: $mainHover;
+    border: none;
+    border-radius: $border-radius;
+    transition: $transition-duration;
+  }
+
+  &_danger {
+    color: $red;
+  }
+
+  &_small {
+    width: auto;
+  }
+
+  &_full {
+    width: 100%;
+  }
+}

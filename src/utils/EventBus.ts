@@ -1,31 +1,48 @@
-export default class EventBus<E extends { [Ev: string]: unknown[] }> {
-  private readonly listeners: {
-    [K in keyof E]?: Array<(...args: E[K]) => void>;
+type Handler<A extends any[] = unknown[]> = (...args: A) => void;
+type MapInterface<P> = P[keyof P];
+
+export class EventBus<
+  E extends Record<string, string> = Record<string, string>,
+  Args extends Record<MapInterface<E>, any[]> = Record<string, any[]>
+> {
+  private readonly _listeners: {
+    [K in MapInterface<E>]?: Handler<Args[K]>[];
   } = {};
 
-  public on<K extends keyof E>(event: K, callback: (...args: E[K]) => void) {
-    if (!this.listeners[event]) {
-      this.listeners[event] = [];
+  constructor() {}
+
+  public on<Event extends MapInterface<E>>(
+    event: Event,
+    callback: Handler<Args[Event]>
+  ) {
+    if (!this._listeners[event]) {
+      this._listeners[event] = [];
     }
 
-    this.listeners[event]?.push(callback);
+    this._listeners[event]?.push(callback);
   }
 
-  public off<K extends keyof E>(event: K, callback: (...args: E[K]) => void) {
-    if (!this.listeners[event]) {
+  public off<Event extends MapInterface<E>>(
+    event: Event,
+    callback: Handler<Args[Event]>
+  ) {
+    if (!this._listeners[event]) {
       throw new Error(`Нет события ${event as string}`);
     }
 
-    this.listeners[event] = this.listeners[event]?.filter(
+    this._listeners[event] = this._listeners[event]?.filter(
       (listener) => listener !== callback
     );
   }
 
-  public emit<K extends keyof E>(event: K, ...args: E[K]) {
-    if (!this.listeners[event]) {
+  public emit<Event extends MapInterface<E>>(
+    event: Event,
+    ...args: Args[Event]
+  ) {
+    if (!this._listeners[event]) {
       return;
     }
 
-    this.listeners[event]?.forEach((listener) => listener(...args));
+    this._listeners[event]?.forEach((listener) => listener(...args));
   }
 }

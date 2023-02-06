@@ -1,10 +1,10 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .contact {
-  padding-top: torem(10);
-  padding-bottom: torem(10);
+  display: flex;
+  padding: 0.75rem 0.5rem;
   cursor: pointer;
   transition: $transition-duration;
 
@@ -17,12 +17,20 @@
 
   // .contact__content
   &__content {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     width: calc(100% - 53px);
 
     .row-between:last-child {
       align-items: baseline;
     }
+  }
+
+  // .contact__row
+  &__row {
+    display: flex;
+    justify-content: space-between;
   }
 
   // .contact__group
@@ -41,11 +49,16 @@
     margin-bottom: torem(6);
   }
 
+  // .contact__own
+  &__own {
+    color: $red;
+  }
+
   // .contact__last-message
   &__last-message {
     overflow: hidden;
     color: $secondary;
-    font-size: torem(12);
+    font-size: torem(14);
     white-space: nowrap;
     text-overflow: ellipsis;
   }

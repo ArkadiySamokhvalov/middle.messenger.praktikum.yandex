@@ -1,19 +1,21 @@
-@import "../../styles/helpers/_variables.scss";
-@import "../../styles/helpers/_functions.scss";
-@import "../../styles//helpers/_mixins.scss";
+@import "../../styles/helpers/variables";
+@import "../../styles/helpers/functions";
+@import "../../styles/helpers/mixins";
 
 .control {
   // .control__label
   &__label {
     display: block;
     margin-bottom: torem(5);
+    font-size: torem(18);
     cursor: pointer;
   }
 
   // .control__input
   &__input {
+    position: relative;
     width: 100%;
-    padding: 8px;
+    padding: torem(10);
     color: $textAccent;
     background-color: $inputBg;
     border: none;
@@ -25,13 +27,41 @@
       outline: none;
       box-shadow: inset 0 -3px 0 0 $blue;
     }
+
+    &:read-only {
+      &:hover,
+      &:focus-visible {
+        box-shadow: none;
+      }
+    }
+
+    // .control__input_invalid
+    &_invalid {
+      color: $red;
+      box-shadow: inset 0 -3px $red !important;
+
+      &:focus-visible {
+        color: $textAccent;
+      }
+    }
+
+    // .control__input_valid
+    &_valid {
+      color: $textAccent;
+      box-shadow: inset 0 -3px $green !important;
+    }
   }
 
   // .control__feedback
   &__feedback {
     display: none;
-    margin-top: torem(8);
+    margin-top: torem($px);
     color: $red;
-    font-size: torem(12);
+    font-size: torem(14);
+
+    // .control__feedback_show
+    &_show {
+      display: block;
+    }
   }
 }
