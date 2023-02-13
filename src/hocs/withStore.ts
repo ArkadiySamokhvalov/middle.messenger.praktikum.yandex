@@ -4,10 +4,10 @@ import store, { StoreEvents } from '../utils/Store';
 import { isEqual } from '../utils/helpers/isEqual';
 
 export function withStore<SP extends T_PlainObject>(
-  mapStateToProps: (state: T_State) => SP
+  mapStateToProps: (state: T_State) => SP,
 ) {
   return function wrap<P extends T_PlainObject>(
-    Component: typeof Block<SP & P>
+    Component: typeof Block<SP & P>,
   ) {
     let currentState: SP | null = null;
 

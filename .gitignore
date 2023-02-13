@@ -132,3 +132,8 @@ dist
 build/
 
 readme.txt
+
+src/utils/helpers/unzip.ts
+src/utils/helpers/take.ts
+src/utils/helpers/omit.ts
+src/utils/helpers/classNames.ts

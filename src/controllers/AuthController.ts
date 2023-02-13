@@ -12,6 +12,10 @@ const enum Errors {
   'User already in system' = 'Пользователь уже авторизован',
 }
 
+type authError = Error & {
+  reason: string;
+};
+
 class AuthController {
   constructor(private _api: AuthAPI, private _router: typeof Router) {}
 
@@ -21,9 +25,14 @@ class AuthController {
 
     try {
       await req();
-    } catch (e: unknown) {
-      Store.set('user.error', Errors[e.reason]);
-      if (e.reason === 'User already in system') {
+    } catch (e) {
+      const err = e as authError;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      Store.set('user.error', Errors[err.reason]);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (err.reason.reason === 'User already in system') {
         this._router.go(Routes.Chat);
       }
     } finally {

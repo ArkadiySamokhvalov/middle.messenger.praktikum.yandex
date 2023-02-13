@@ -1,4 +1,4 @@
-import { BaseAPI } from './BaseAPi';
+import { BaseAPI } from './BaseAPI';
 
 export class ResourcesAPI extends BaseAPI {
   constructor() {

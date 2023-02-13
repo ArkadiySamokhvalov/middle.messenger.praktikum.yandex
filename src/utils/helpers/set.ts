@@ -5,7 +5,7 @@ import { T_Indexed } from '../../typings/types';
 export function set(
   object: T_Indexed | unknown,
   path: string,
-  value: unknown
+  value: unknown,
 ): T_Indexed | unknown {
   if (!isObject(object)) {
     return object;
@@ -19,7 +19,7 @@ export function set(
     (acc, key) => ({
       [key]: acc,
     }),
-    value as any
+    value as any,
   );
   return merge(<T_Indexed>object, result);
 }

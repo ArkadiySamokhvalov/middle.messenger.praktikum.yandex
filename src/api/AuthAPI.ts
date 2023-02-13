@@ -1,4 +1,4 @@
-import { BaseAPI } from './BaseAPi';
+import { BaseAPI } from './BaseAPI';
 import { T_SigninData, T_SignupData, T_UserData } from '../typings/types';
 
 export class AuthAPI extends BaseAPI {

@@ -32,7 +32,7 @@ export function addClasses(
   condition: boolean,
   input: HTMLInputElement,
   feedback: HTMLElement,
-  message: string
+  message: string,
 ) {
   if (condition) {
     input.classList.remove('control__input_invalid');

@@ -3,7 +3,7 @@ import {
   T_UserChangePasswordData,
   T_UserProfileData,
 } from '../typings/types';
-import { BaseAPI } from './BaseAPi';
+import { BaseAPI } from './BaseAPI';
 
 export class UsersAPI extends BaseAPI {
   constructor() {

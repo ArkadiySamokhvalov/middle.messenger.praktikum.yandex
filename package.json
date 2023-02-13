@@ -33,16 +33,9 @@
       "config": "config/git/commitizen.js"
     }
   },
-  "prettier": {
-    "singleQuote": false,
-    "trailingComma": "all",
-    "printWidth": 120,
-    "tabWidth": 2
-  },
   "lint-staged": {
     "*.{ts}": [
-      "npm run lint",
-      "prettier --write"
+      "npm run lint"
     ],
     "*.{scss}": [
       "npm run stylelint:fix"

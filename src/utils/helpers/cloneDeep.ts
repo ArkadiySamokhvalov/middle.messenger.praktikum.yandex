@@ -1,6 +1,6 @@
 export function cloneDeep<T extends object = object>(obj: T) {
   return (function _cloneDeep(
-    item: T
+    item: T,
   ): T | Date | Set<unknown> | Map<unknown, unknown> | object | T[] {
     // Handle:
     // * null

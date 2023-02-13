@@ -59,7 +59,7 @@ class ChatsController {
       await Promise.all(
         chats.map(async (chat) => {
           return MessagesController.connect(chat.id);
-        })
+        }),
       );
       Store.set('chats.data', chats);
     } catch (e: any) {

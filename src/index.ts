@@ -9,15 +9,13 @@ import ChatPage from './pages/Chat';
 import UserSettingsPage from './pages/UserSettings';
 import ChangePasswordPage from './pages/ChangePassword';
 
-// @ts-ignore
-import components from './components/**/index.ts';
+const components = require.context('./components', true, /\.ts$/);
 import { registerComponent } from './utils/registerComponent';
 
 window.addEventListener('DOMContentLoaded', async () => {
-  Object.values(components).forEach((component) =>
-    // @ts-ignore
-    registerComponent(component.default)
-  );
+  components.keys().forEach((filePath) => {
+    registerComponent(components(filePath).default);
+  });
 
   Router.use(Routes.Index, LoginPage)
     .use(Routes.SignUp, SignupPage)

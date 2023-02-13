@@ -42,13 +42,15 @@ export default class Input extends Block {
           const preview = <HTMLImageElement>(
             picture.querySelector('.avatar__img')
           );
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           const file = input.files[0];
           const reader = new FileReader();
 
           reader.onloadend = function () {
             icon?.classList.add('avatar__icon_hide');
             picture?.classList.add('avatar__picture_show');
-            preview.src = reader.result;
+            preview.src = <string>reader.result;
           };
 
           if (file) {
@@ -74,7 +76,7 @@ export default class Input extends Block {
           );
           input.classList.remove(
             'control__input_invalid',
-            'control__input_valid'
+            'control__input_valid',
           );
           feedback.textContent = '';
         },

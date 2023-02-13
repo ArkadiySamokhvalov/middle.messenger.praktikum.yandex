@@ -18,7 +18,7 @@ function closeModalAfterSubmit(form: HTMLFormElement) {
 export async function submitForm(
   form: HTMLFormElement,
   error: string,
-  callback: () => void
+  callback: () => void,
 ) {
   try {
     await callback();
