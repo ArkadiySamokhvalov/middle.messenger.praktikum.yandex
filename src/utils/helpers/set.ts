@@ -21,5 +21,5 @@ export function set(
     }),
     value as any
   );
-  return merge(object as T_Indexed, result);
+  return merge(<T_Indexed>object, result);
 }

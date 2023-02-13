@@ -1,7 +1,7 @@
 import { isObject } from './isObject';
-import { Indexed } from '../../typings/types';
+import { T_Indexed } from '../../typings/types';
 
-export function merge(lhs: Indexed, rhs: Indexed): Indexed {
+export function merge(lhs: T_Indexed, rhs: T_Indexed): T_Indexed {
   for (const p in rhs) {
     if (!Object.hasOwnProperty.call(rhs, p)) {
       continue;
@@ -9,7 +9,7 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
 
     try {
       if (isObject(rhs[p])) {
-        rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
+        rhs[p] = merge(<T_Indexed>lhs[p], <T_Indexed>rhs[p]);
       } else {
         lhs[p] = rhs[p];
       }

@@ -83,6 +83,8 @@ export function validateInput(input: HTMLInputElement, notEmpty = false) {
       addClasses(validate(pattern, value));
     }
     if (sameAs) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const correctVal = <string>form.elements[sameAs].value;
       addClasses(value === correctVal);
     }

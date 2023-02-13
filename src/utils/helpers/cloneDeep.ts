@@ -52,21 +52,21 @@ export function cloneDeep<T extends object = object>(obj: T) {
 
     // Handle:
     // * Object
-    if (item instanceof Object) {
-      const copy: object = {};
+    // if (item instanceof Object) {
+    //   const copy: object = {};
 
-      // Handle:
-      // * Object.symbol
-      Object.getOwnPropertySymbols(item).forEach(
-        (s) => (copy[s] = _cloneDeep(item[s]))
-      );
+    //   // Handle:
+    //   // * Object.symbol
+    //   Object.getOwnPropertySymbols(item).forEach(
+    //     (s) => (copy[s] = _cloneDeep(item[s]))
+    //   );
 
-      // Handle:
-      // * Object.name (other)
-      Object.keys(item).forEach((k) => (copy[k] = _cloneDeep(item[k])));
+    //   // Handle:
+    //   // * Object.name (other)
+    //   Object.keys(item).forEach((k) => (copy[k] = _cloneDeep(item[k])));
 
-      return copy;
-    }
+    //   return copy;
+    // }
 
     throw new Error(`Unable to copy object: ${item}`);
   })(obj);

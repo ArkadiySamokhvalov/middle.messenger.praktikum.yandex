@@ -17,6 +17,11 @@ class Router {
     Router.__instance = this;
   }
 
+  public reset() {
+    this._routes = [];
+    this._currentRoute = null;
+  }
+
   private _getRoute(pathname: string) {
     return this._routes.find((route) => route.match(pathname));
   }

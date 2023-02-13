@@ -1,5 +1,4 @@
 import { EventBus } from './EventBus';
-import Store from './Store';
 
 export enum SocketEvent {
   Connected = 'connected',
@@ -10,7 +9,7 @@ export enum SocketEvent {
 
 export class WSTransport extends EventBus {
   private _socket: WebSocket | null = null;
-  private _pingInterval: number | null;
+  private _pingInterval: number | null = null;
 
   constructor(private readonly url: string) {
     super();
@@ -34,7 +33,7 @@ export class WSTransport extends EventBus {
       this.emit(SocketEvent.Connected);
     });
 
-    _socket.addEventListener('close', (e) => {
+    _socket.addEventListener('close', () => {
       this.emit(SocketEvent.Close);
     });
 
@@ -62,11 +61,15 @@ export class WSTransport extends EventBus {
   }
 
   public close() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     clearInterval(this._pingInterval);
     this._socket?.close();
   }
 
   private _setupPingPong() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this._pingInterval = setInterval(() => {
       this.send({
         type: 'ping',
