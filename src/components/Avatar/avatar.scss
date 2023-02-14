@@ -38,8 +38,8 @@
     right: 2px;
     bottom: 0;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     width: 10px;
     height: 10px;
     background-color: $mainBg;
@@ -59,8 +59,8 @@
   // .avatar_centred
   &_centered {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
     .avatar__picture {
       display: none;
@@ -75,8 +75,8 @@
   // .avatar_empty
   &_empty {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     background-color: burlywood;
     background-image: linear-gradient(burlywood, $mainHover);
     border-radius: 50%;
