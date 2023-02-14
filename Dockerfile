@@ -1,15 +1,7 @@
-FROM node:16-alpine
-
-WORKDIR /var/www/app
-
-COPY package.json package-lock.json ./
-
-RUN npm install
-
+FROM ubuntu:latest
+FROM node:18.7.0
+WORKDIR /app
 COPY . .
-
-RUN npm run build
-
+RUN npm install && npm run build
 EXPOSE 3000
-
-CMD ["node", "./server.js"]
+CMD [ "node", "server.js" ]
