@@ -2,7 +2,7 @@
 const { JSDOM } = require('jsdom');
 
 const dom = new JSDOM(
-  '<!DOCTYPE html><body><div id="root"></div></body></html>'
+  '<!DOCTYPE html><body><div id="root"></div></body></html>',
 );
 
 global.window = dom.window;

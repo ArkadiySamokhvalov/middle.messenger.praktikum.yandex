@@ -34,19 +34,16 @@
     }
   },
   "lint-staged": {
-    "*.{ts}": [
+    "*.ts": [
       "npm run lint"
     ],
-    "*.{scss}": [
+    "*.scss": [
       "npm run stylelint:fix"
     ]
   },
   "husky": {
     "hooks": {
-      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
-      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
-      "post-applypatch": "echo \"[Husky] post-applypatch\"",
-      "pre-commit": "echo \"[Husky] pre-commit\"",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
     }
   },
@@ -73,21 +70,21 @@
     "express-history-api-fallback": "2.2.1",
     "handlebars": "4.7.7",
     "html-webpack-plugin": "5.5.0",
-    "husky": "8.0.2",
+    "husky": "4.3.8",
     "jsdom": "21.1.0",
     "lint-staged": "13.0.3",
     "mini-css-extract-plugin": "2.7.2",
     "mocha": "10.2.0",
     "nanoid": "3.3.4",
     "parcel": "2.8.0",
-    "prettier": "^2.8.0",
+    "prettier": "2.8.0",
     "sass": "1.58.0",
     "sass-loader": "13.2.0",
     "sinon": "15.0.1",
     "style-loader": "3.3.1",
     "stylelint": "14.15.0",
     "stylelint-config-prettier": "9.0.4",
-    "stylelint-config-rational-order": "0.1.2",
+    "stylelint-config-rational-order": "0.0.4",
     "stylelint-config-recommended-scss": "8.0.0",
     "stylelint-config-standard": "29.0.0",
     "stylelint-order": "5.0.0",
