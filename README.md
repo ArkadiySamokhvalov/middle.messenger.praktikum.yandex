@@ -33,7 +33,7 @@
 
 ## Превью проекта
 
-[Посмотреть проект](https://rainbow-licorice-5a9a23.netlify.app/)
+[Посмотреть проект](https://messenger-wthh.onrender.com)
 
 ## Установка
 
