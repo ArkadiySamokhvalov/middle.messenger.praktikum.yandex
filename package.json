@@ -35,7 +35,8 @@
   },
   "lint-staged": {
     "*.ts": [
-      "npm run lint"
+      "npm run lint",
+      "npm run test"
     ],
     "*.scss": [
       "npm run stylelint:fix"
@@ -84,7 +85,7 @@
     "style-loader": "3.3.1",
     "stylelint": "14.15.0",
     "stylelint-config-prettier": "9.0.4",
-    "stylelint-config-rational-order": "0.0.4",
+    "stylelint-config-rational-order-fix": "0.1.9",
     "stylelint-config-recommended-scss": "8.0.0",
     "stylelint-config-standard": "29.0.0",
     "stylelint-order": "5.0.0",
