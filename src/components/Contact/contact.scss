@@ -18,8 +18,8 @@
   // .contact__content
   &__content {
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
+    flex-grow: 1;
     width: calc(100% - 53px);
 
     .row-between:last-child {

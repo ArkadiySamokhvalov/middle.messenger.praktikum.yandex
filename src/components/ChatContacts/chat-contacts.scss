@@ -6,8 +6,8 @@
   // .chat-contacts__button
   &__button {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     .icon {
       width: 24px;
@@ -20,8 +20,8 @@
   &__text {
     display: flex;
     flex-grow: 1;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100%;
     color: $secondary;
     font-size: torem(18);
