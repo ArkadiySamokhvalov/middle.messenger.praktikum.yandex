@@ -1,5 +1,5 @@
 import { T_ChatData, T_UserDataWithRole } from '../typings/types';
-import { BaseAPI } from './BaseAPi';
+import { BaseAPI } from './BaseAPI';
 
 export class ChatsAPI extends BaseAPI {
   constructor() {

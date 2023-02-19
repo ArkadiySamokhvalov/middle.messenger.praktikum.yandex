@@ -218,7 +218,7 @@ const withState = withStore((state) => {
     chats: state.chats?.data,
     messages: (state.messages || {})[selectedChatId] || [],
     selectedChat: state.chats.data.filter(
-      (chat: T_ChatData) => chat.id === state.selectedChat?.id
+      (chat: T_ChatData) => chat.id === state.selectedChat?.id,
     )[0],
   };
 });

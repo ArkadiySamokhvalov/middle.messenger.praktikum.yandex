@@ -26,7 +26,7 @@ export class HTTPTransport {
 
   public get<Response>(
     path = '/',
-    options: OptionsWithoutMethod = {}
+    options: OptionsWithoutMethod = {},
   ): Promise<Response> {
     const { data = null } = options;
     const url = this.endpoint + path;
@@ -36,7 +36,7 @@ export class HTTPTransport {
 
   public post<Response = void>(
     path = '/',
-    options: OptionsWithoutMethod = {}
+    options: OptionsWithoutMethod = {},
   ): Promise<Response> {
     const url = this.endpoint + path;
     return this._request<Response>(url, { ...options, method: METHOD.POST });
@@ -73,7 +73,7 @@ export class HTTPTransport {
 
   private _request<Response>(
     url: string | URL,
-    options: Options = { method: METHOD.GET }
+    options: Options = { method: METHOD.GET },
   ): Promise<Response> {
     const { method, data, headers, timeout } = options;
 

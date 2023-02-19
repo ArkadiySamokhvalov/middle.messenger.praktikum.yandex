@@ -94,7 +94,7 @@ export class Block<P extends Record<string, any> = any> {
     this._eventBus().emit(Block.EVENTS.FLOW_CDM);
 
     Object.values(this.children).forEach((child) =>
-      child.dispatchComponentDidMount()
+      child.dispatchComponentDidMount(),
     );
   }
 

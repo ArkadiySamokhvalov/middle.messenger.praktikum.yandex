@@ -7,7 +7,7 @@ export class Route {
   constructor(
     private _pathname: string,
     private readonly _blockClass: typeof Block,
-    private readonly _props: Record<string, unknown>
+    private readonly _props: Record<string, unknown>,
   ) {}
 
   public navigate(pathname: string) {

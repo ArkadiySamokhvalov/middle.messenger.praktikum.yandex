@@ -15,17 +15,17 @@ class MessagesController {
     const token = await ChatsController.getToken(chatId);
     const userId = Store.getState().user.data.id;
     const transport = new WSTransport(
-      `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`
+      `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`,
     );
 
     await transport.connect();
     transport.on(
       SocketEvent.Message,
-      this._onMessageReceived.bind(this, chatId)
+      this._onMessageReceived.bind(this, chatId),
     );
     transport.on(
       SocketEvent.Close,
-      this._onConnectionClosed.bind(this, chatId)
+      this._onConnectionClosed.bind(this, chatId),
     );
 
     this._transports[chatId] = transport;
@@ -35,7 +35,7 @@ class MessagesController {
 
   private _onMessageReceived(
     chatId: number,
-    message: T_MessageData | T_MessageData[]
+    message: T_MessageData | T_MessageData[],
   ) {
     let messagesToAdd: T_MessageData[] = [];
     let type: string;

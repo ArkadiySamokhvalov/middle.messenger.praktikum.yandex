@@ -19,6 +19,6 @@ export function registerComponent(Component: typeof Block) {
       const contents = fn ? fn(this) : '';
 
       return `<div data-id="id-${component.id}">${contents}</div>`;
-    }
+    },
   );
 }
